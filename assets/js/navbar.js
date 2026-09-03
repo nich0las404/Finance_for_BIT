@@ -5,7 +5,8 @@ class AppNavbar extends HTMLElement {
       .then(res => res.text())
       .then(data => {
         this.innerHTML = data;
-        this.initToggle(); // Attach logic AFTER elements are injected
+        this.initToggle();
+        this.initAuth();
       });
   }
 
@@ -22,6 +23,60 @@ class AppNavbar extends HTMLElement {
         navbarToggle.setAttribute('aria-expanded', !isExpanded);
       });
     }
+  }
+
+  initAuth() {
+    const loginBtn = this.querySelector('#loginNavBtn');
+
+    // Update UI based on active session
+    this.updateNavbarAuthUI();
+
+    // Listen for global session changes
+    window.addEventListener('user-session-changed', () => {
+      this.updateNavbarAuthUI();
+    });
+
+    if (loginBtn) {
+      loginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const rawSession = localStorage.getItem('finance_session');
+        const session = rawSession ? JSON.parse(rawSession) : null;
+
+        if (session && session.isLoggedIn) {
+          // If already logged in, clicking acts as Logout
+          if (confirm(`Logged in as ${session.name}. Do you want to log out?`)) {
+            localStorage.removeItem('finance_session');
+            this.updateNavbarAuthUI();
+          }
+        } else {
+          // Trigger login modal popup
+          window.dispatchEvent(new CustomEvent('open-login-modal'));
+        }
+      });
+    }
+  }
+
+  updateNavbarAuthUI() {
+    const loginBtn = this.querySelector('#loginNavBtn');
+    if (!loginBtn) return;
+
+    const rawSession = localStorage.getItem('finance_session');
+    if (rawSession) {
+      try {
+        const session = JSON.parse(rawSession);
+        if (session && session.isLoggedIn) {
+          const firstName = session.name ? session.name.split(' ')[0] : 'User';
+          loginBtn.textContent = `Logout (${firstName})`;
+          loginBtn.setAttribute('title', `Logged in as ${session.name}. Click to log out.`);
+          return;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    loginBtn.textContent = 'Log In';
+    loginBtn.removeAttribute('title');
   }
 }
 
