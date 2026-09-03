@@ -1,0 +1,170 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    margin: 0; 
+    font-family: var(--font-family-sans-serif);
+    font-size: 1rem; 
+    font-weight: 500; 
+    line-height: 1.6;
+    color: var(--color-text); 
+    background-color: var(--color-background);
+}
+
+.content { height: 200vh; padding: 120px 2rem; text-align: center; }
+ul { list-style: none; margin: 0; padding: 0; }
+a { text-decoration: none; color: inherit; }
+/*
+========================================
+Navbar Base & Mobile Styles
+========================================
+*/
+.navbar {
+    height: var(--navbar-height); 
+    display: flex; 
+    align-items: center;
+    background-color: var(--color-navbar-bg);
+    border-bottom: 2px solid var(--theme-black);
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
+}
+
+.navbar__container {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%; 
+    max-width: var(--container-width);
+    margin: 0 auto; 
+    padding: 0 var(--navbar-padding);
+}
+
+.navbar__toggle { 
+    display: block; 
+    border: none; 
+    padding: 0.5rem; 
+    background: transparent; 
+    cursor: pointer; 
+    z-index: 1001; 
+}
+
+.navbar__toggle .bar { 
+    display: block; 
+    width: 25px; 
+    height: 3px; 
+    margin: 5px auto; 
+    background-color: var(--color-text); 
+    border-radius: 3px; 
+    transition: all var(--transition-speed) var(--transition-bounce); 
+}
+
+.navbar__toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.navbar__toggle.is-active .bar:nth-child(2) { opacity: 0; }
+.navbar__toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+.navbar__menu { 
+    display: none; 
+    flex-direction: column; 
+    width: 100%; 
+    position: absolute; 
+    top: var(--navbar-height); 
+    left: 0; 
+    background-color: var(--color-navbar-bg); 
+    border-bottom: 2px solid var(--theme-black); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
+    z-index: 999; 
+}
+
+.navbar__menu.is-active { display: flex; }
+.navbar__item { text-align: center; }
+
+.navbar__link { 
+    display: block; 
+    padding: 1.5rem; 
+    font-weight: var(--font-weight-bold); 
+    color: var(--color-text);
+    transition: background-color var(--transition-speed) ease; 
+}
+
+.navbar__link:hover, .navbar__link:focus { 
+    background-color: var(--color-highlight-bg); 
+}
+
+:is(.navbar__toggle, .navbar__link):focus-visible { 
+    outline: 3px solid var(--color-secondary); 
+    outline-offset: 2px; 
+}
+.navbar__logo {
+    height: 80px; /* Adjust height to fit inside your 80px navbar */
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+/*
+========================================
+Desktop Navbar Styles & Animations
+========================================
+*/
+@media (min-width: 768px) {
+    .navbar__toggle { display: none; }
+    
+    .navbar__menu { 
+        display: flex; 
+        flex-direction: row; 
+        align-items: center; 
+        position: static; 
+        width: auto; 
+        background: none; 
+        border: none; 
+        box-shadow: none; 
+    }
+    
+    .navbar__list { display: flex; align-items: center; gap: 0.5rem; }
+    .navbar__link { padding: 0.5rem 1rem; position: relative; }
+    
+    .navbar__link:not(.navbar__link--cta):hover, 
+    .navbar__link:not(.navbar__link--cta):focus { background-color: transparent; }
+    
+    /* Underline animation in Team Gold */
+    .navbar__link:not(.navbar__link--cta)::after {
+        content: ''; 
+        position: absolute; 
+        bottom: 0; 
+        left: 50%; 
+        width: 0;
+        height: 3px; 
+        background-color: var(--color-secondary);
+        transition: all var(--transition-speed) ease; 
+        transform: translateX(-50%);
+    }
+    
+    .navbar__link:not(.navbar__link--cta):hover::after, 
+    .navbar__link:not(.navbar__link--cta):focus::after { width: 100%; }
+
+    /* CTA Button in Gold with dark text */
+    .navbar__item--cta { margin-left: 1rem; }
+    
+    .navbar__link--cta {
+        background-color: var(--color-primary); 
+        color: var(--theme-black);
+        padding: 0.75rem 1.5rem; 
+        border-radius: 50px;
+        transition: transform var(--transition-speed) var(--transition-bounce), 
+                    background-color var(--transition-speed) ease;
+    }
+    
+    .navbar__link--cta:hover, .navbar__link--cta:focus {
+        background-color: var(--color-primary-darker);
+        transform: scale(1.05);
+    }
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .navbar__toggle .bar, .navbar__link:not(.navbar__link--cta)::after, .navbar__link--cta { transition: none; }
+    .navbar__link:not(.navbar__link--cta):hover::after, .navbar__link:not(.navbar__link--cta):focus::after { width: 100%; }
+    .navbar__link--cta:hover, .navbar__link--cta:focus {
+        transform: none;
+        background-color: var(--color-primary-darker);
+    }
+}

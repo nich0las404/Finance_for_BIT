@@ -1,0 +1,32 @@
+/*
+========================================
+CSS Custom Properties (Dark Theme)
+========================================
+*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+:root {
+    /* Team Color Palette */
+    --theme-blue: #1c2d42;
+    --theme-gold: #b39258;
+    --theme-black: #000000;
+    --theme-gray: #999999;
+    --theme-dark-gray: #434343;
+
+    /* Component Mapping */
+    --color-background: var(--theme-dark-gray);
+    --color-navbar-bg: var(--theme-blue);         /* Blue background for header contrast */
+    --color-text: #ffffff;                        /* White text for dark gray background */
+    --color-muted-text: var(--theme-gray);
+    --color-primary: var(--theme-gold);            /* Gold brand name & CTA button */
+    --color-primary-darker: #8c7040;               /* Darker gold for hover states */
+    --color-secondary: var(--theme-gold);          /* Gold focus rings & active underlines */
+    --color-highlight-bg: rgba(255, 255, 255, 0.08); /* Subtle white overlay for hovers */
+
+    --font-family-sans-serif: "Montserrat", system-ui, -apple-system, sans-serif;
+    --font-weight-bold: 700;
+    --navbar-height: 100px;
+    --navbar-padding: 1.5rem;
+    --container-width: 1140px;
+    --transition-speed: 0.3s;
+    --transition-bounce: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
