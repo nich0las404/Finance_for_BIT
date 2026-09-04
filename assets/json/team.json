@@ -13,7 +13,7 @@
     "profile_img": "assets/images/nathan.png",
     "student_id": "1820252049",
     "role": "Writer",
-    "about": ""
+    "about": "I recently switched from Mechanical Engineering to Artificial Intelligence as I’m eager to make use of the world’s most modern technology over to the financial industry. As a person, I’ve always loved breaking down complex subjects to simpler, understandable drivers: whether that was engineering, AI, and now finance. \nIn engineering, you would use a CAD software to build models of complex machines. I deeply enjoyed the process, as the painting of how those machine works has always appeared in my mind every time I think about them. It works the same way in AI and finance. In AI, you would study algorithms and build them in a programming language to really understand the simple drivers that make them, but in finance, you would use Excel models to break down the business model, revenue streams, and cost structure of each company. The best part is that it’s always dynamic as markets and the macroeconomic scene is always everchanging.\nI'm definitely still far from having a skillset that someone in Investment Banking or Equity Research would need, but it is also one of my primary goals in this semester to really get into the nitty-gritty of financial modelling and hopefully produce valuable equity research reports. Hope each and every one of you can learn as much as you can from Finance for BIT!"
   },
   {
     "id": "3",
@@ -21,11 +21,11 @@
     "profile_img": "assets/images/kenzie.jpg",
     "student_id": "1820252123",
     "role": "Writer",
-    "about": ""
+    "about": "Hi, I’m Kenzie Wellington Tjakra, an undergraduate student at Beijing Institute of Technology, majoring in Artificial Intelligence in my second year. My interest in Artificial Intelligence started in 2022, when I began using ChatGPT, one of the most popular LLM models at the time, to help me in studying. From there, I started learning how to code, and ended up having a solid foundation in a few languages, namely C and C++. \nIn my first year at Beijing Institute of Technology, I had the chance to participate in Professor 赵丰年’s courses, AI & CS in the first semester and C Programming in the second. This opportunity gave me the key experience I needed, working in an actual team with people in a professional environment. Through this experience, I developed my skills and learned more about Artificial Intelligence, and ended up placing first place and second place respectively. \nAfter working with other people, I wanted to try doing my own projects. After asking my fellow colleagues, upperclassmen, and other trustable sources, I decided to start on many projects at once. This has led me to having many projects simultaneously, one of them is learning on Game Design, where I studied a lot of coding related to the creation of games. Currently, I am using GD Engine, but I am planning to study C# for Unity soon, since it is the most used platform professionally. \nOther than coding, I also wanted to hone some skills that I might find useful in the future. Some of my current interests include: Fluid dynamics simulation, Computer Aided Design, 3D Modeling, and PCB Design.  \nNonacademically, I enjoy studying chess in my free time. I like to think how chess links me to my major, since they help me practice my problem solving skills, albeit in unrelated games."
   },
   {
     "id": "4",
-    "name": "Steven Kenneth Darwy 黃德意",
+    "name": "Steven Kenneth D. 黃德意",
     "profile_img": "assets/images/steve.png",
     "student_id": "1820252108",
     "role": "Designer",
