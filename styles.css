@@ -30,3 +30,71 @@ CSS Custom Properties (Dark Theme)
     --transition-speed: 0.3s;
     --transition-bounce: cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
+
+/* Global Reset & Base Typography */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-family-sans-serif);
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+button {
+    font-family: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Common Button Components */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background-color: var(--theme-gold, #b39258);
+    color: #000000;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.85rem 1.85rem;
+    border-radius: 10px;
+    border: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 15px rgba(179, 146, 88, 0.25);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #c9a66b;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(179, 146, 88, 0.4);
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text, #ffffff);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.85rem 1.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}

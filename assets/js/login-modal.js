@@ -138,7 +138,8 @@ class AppLoginModal extends HTMLElement {
           this.closeModal();
           const form = this.querySelector('#loginForm');
           if (form) form.reset();
-        }, 1200);
+          window.location.reload();
+        }, 800);
 
       } else {
         this.showAlert('Invalid User ID / Email or Password. Please try again.', 'error');

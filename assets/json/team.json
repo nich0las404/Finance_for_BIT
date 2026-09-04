@@ -33,11 +33,11 @@
   },
   {
     "id": "5",
-    "name": "",
+    "name": "Christopher Nathanael Joessim 沈佳豪",
     "profile_img": "assets/images/chris.png",
-    "student_id": "",
-    "role": "",
-    "about": ""
+    "student_id": "1820252172",
+    "role": "Programmer",
+    "about": "My name is Christopher, born and raised in Indonesia, currently in my second year studying Artificial Intelligence at the Beijing Institute of Technology. Serving as the programmer for an interactive learning website Finance for BIT. Drawing from my experience developing game before, I apply game mechanics to educational web design to build immersive, hands-on learning environments. My background in game creation shapes how I approach user interaction, helping me turn static course content into active, engaging digital experiences. \nOn the technical side, my core skill set centers on web and systems programming, particularly in JavaScript, HTML, and C. I leverage JavaScript and modern HTML to construct dynamic, highly responsive web interfaces that bring interactive lessons to life directly in the browser."
   },
   {
     "id": "6",

@@ -47,6 +47,7 @@ class AppNavbar extends HTMLElement {
           if (confirm(`Logged in as ${session.name}. Do you want to log out?`)) {
             localStorage.removeItem('finance_session');
             this.updateNavbarAuthUI();
+            window.location.reload();
           }
         } else {
           // Trigger login modal popup

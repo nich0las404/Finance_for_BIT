@@ -95,6 +95,7 @@
 /* Pillars Section */
 .pillars-section {
     margin-bottom: 5rem;
+    scroll-margin-top: 150px;
 }
 
 .section-header {
