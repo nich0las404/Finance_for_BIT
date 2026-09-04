@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "name": "Nicholas Hartono Gan 顔晟兆",
+    "profile_img": "assets/images/nicholas.png",
+    "student_id": "1820252121",
+    "role": "CTO",
+    "about": "My name is Nicholas and I am a Computer Science student with a strong interest in technology and sports. I began studying frontend development in December 2023, focusing on building a strong foundation in HTML, CSS, and JavaScript. From December 2023 to January 2025, I developed my skills through personal projects, internships, and multiple competitions. These experiences allowed me to gain practical experience in web development while also learning how to work effectively in a team. One of my highlights during this period was achieving 2nd place in the beginner category of a frontend-focused hackathon. \nAfter building a foundation in frontend development, I began shifting my focus toward cybersecurity in 2025. My current interest is primarily in web security, where I enjoy understanding how applications work and how security weaknesses can arise from their implementation. I am currently studying concepts such as OAuth, PKCE, authentication mechanisms, IDOR, XSS, and other web vulnerabilities. I also practice through security labs and bug bounty platforms to gain hands-on experience and develop my problem-solving skills. \nFor this project, I take the role of Chief Technology Officer (CTO), helping guide the team's technical direction while contributing to the development of the website. This role has given me an opportunity to apply my previous frontend experience while continuing to improve my teamwork and technical decision-making.\nOutside of technology, I enjoy boxing, fitness, and creating content related to combat sports. I am still learning and developing my skills, and I hope to continue exploring different areas of technology while building practical experience through projects and challenges.."
+  },
+  {
+    "id": "2",
+    "name": "Nathan Chang 张金木",
+    "profile_img": "assets/images/nathan.png",
+    "student_id": "1820252049",
+    "role": "Writer",
+    "about": ""
+  },
+  {
+    "id": "3",
+    "name": "Kenzie Wellington T. 谢仁和",
+    "profile_img": "assets/images/kenzie.jpg",
+    "student_id": "1820252123",
+    "role": "Writer",
+    "about": ""
+  },
+  {
+    "id": "4",
+    "name": "",
+    "profile_img": "assets/images/steve.png",
+    "student_id": "",
+    "role": "Designer",
+    "about": ""
+  },
+  {
+    "id": "5",
+    "name": "",
+    "profile_img": "assets/images/chris.png",
+    "student_id": "",
+    "role": "",
+    "about": ""
+  },
+  {
+    "id": "6",
+    "name": "Shawn Brandon Tan 陈孝德",
+    "profile_img": "assets/images/shawn.jpg",
+    "student_id": "1820252139",
+    "role": "CEO/CIO",
+    "about": "As the CEO, I serve as the strategic anchor of our collective vision, ensuring that every initiative aligns with our core mission and long-term sustainability. My leadership extends beyond mere administration; it involves cultivating a culture of innovation and accountability where each team member feels empowered to contribute their unique strengths. By maintaining clear communication channels and fostering an environment of trust, I ensure that our group remains cohesive and resilient in the face of challenges. This foundational stability allows us to pivot quickly when necessary while staying true to our overarching goals, creating a robust framework for sustained growth and success in an ever-evolving market landscape.\nSimultaneously, my role as CIO bridges the gap between technological potential and practical application. I oversee the integration of cutting-edge digital tools and data-driven strategies that streamline our operations and enhance decision-making processes. By prioritizing cybersecurity and scalable infrastructure, I ensure that our technical backbone supports rather than hinders our creative and business objectives. This dual focus on efficiency and innovation enables the team to leverage technology not just as a utility, but as a competitive advantage, driving productivity and enabling seamless collaboration across all departments without compromising on speed or quality.\nFinally, as the lead video editor, I translate our abstract concepts into compelling visual narratives that resonate with our audience. This creative responsibility requires a keen eye for detail and a deep understanding of storytelling dynamics, ensuring that our brand’s message is both engaging and authentic. By merging technical precision with artistic flair, I help shape the public perception of our work, turning raw footage into polished content that drives engagement. This multifaceted approach ensures that our group operates harmoniously, balancing strategic direction, technological prowess, and creative excellence to achieve superior results."
+  }
+]

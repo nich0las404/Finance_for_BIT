@@ -1,0 +1,194 @@
+/* ========================================
+   About Page Layout & Design
+   ======================================== */
+.about-section {
+    min-height: calc(100vh - var(--navbar-height, 80px));
+    background: var(--theme-dark-gray, #121824);
+    padding: 4rem 1.5rem 6rem;
+    color: var(--color-text, #ffffff);
+}
+
+.about-container {
+    max-width: var(--container-width, 1100px);
+    margin: 0 auto;
+}
+
+/* Hero Section */
+.about-hero {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 4rem;
+}
+
+.about-badge {
+    display: inline-block;
+    background: rgba(179, 146, 88, 0.15);
+    border: 1px solid rgba(179, 146, 88, 0.3);
+    color: var(--theme-gold, #b39258);
+    padding: 0.4rem 1.1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.25rem;
+}
+
+.about-title {
+    font-size: clamp(2.4rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+}
+
+.about-title span {
+    color: var(--theme-gold, #b39258);
+}
+
+.about-subtitle {
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    color: var(--theme-gray, #a0aec0);
+    line-height: 1.6;
+}
+
+/* Problem vs Mission Cards */
+.origin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 5rem;
+}
+
+.origin-card {
+    background: rgba(28, 45, 66, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.mission-card {
+    border-color: rgba(179, 146, 88, 0.3);
+    background: rgba(28, 45, 66, 0.7);
+}
+
+.card-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--theme-gold, #b39258);
+    margin-bottom: 0.75rem;
+}
+
+.origin-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.origin-card p {
+    color: var(--theme-gray, #a0aec0);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Pillars Section */
+.pillars-section {
+    margin-bottom: 5rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.section-header h2 span {
+    color: var(--theme-gold, #b39258);
+}
+
+.section-header p {
+    color: var(--theme-gray, #a0aec0);
+    margin-top: 0.5rem;
+}
+
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.pillar-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1.75rem;
+    position: relative;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.pillar-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--theme-gold, #b39258);
+}
+
+.pillar-num {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--theme-gold, #b39258);
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.pillar-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+}
+
+.pillar-card p {
+    font-size: 0.88rem;
+    color: var(--theme-gray, #a0aec0);
+    line-height: 1.5;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.feature-item {
+    background: rgba(28, 45, 66, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.feature-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+}
+
+.feature-item h4 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text, #ffffff);
+}
+
+.feature-item p {
+    font-size: 0.85rem;
+    color: var(--theme-gray, #a0aec0);
+    line-height: 1.5;
+}
+
+/* Responsive Rules */
+@media (max-width: 768px) {
+    .origin-grid {
+        grid-template-columns: 1fr;
+    }
+}

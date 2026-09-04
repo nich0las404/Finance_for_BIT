@@ -23,7 +23,7 @@ Navbar Base & Mobile Styles
     display: flex; 
     align-items: center;
     background-color: var(--color-navbar-bg);
-    border-bottom: 2px solid var(--theme-black);
+    /* border-bottom: 2px solid var(--theme-black); */
     position: sticky; 
     top: 0; 
     z-index: 1000;
@@ -146,7 +146,7 @@ Desktop Navbar Styles & Animations
     
     .navbar__link--cta {
         background-color: var(--color-primary); 
-        color: var(--theme-black);
+        color: white;
         padding: 0.75rem 1.5rem; 
         border-radius: 50px;
         transition: transform var(--transition-speed) var(--transition-bounce), 

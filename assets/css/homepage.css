@@ -3,21 +3,57 @@
    ======================================== */
 .hero {
     position: relative;
-    min-height: calc(100vh - var(--navbar-height));
+    min-height: calc(100vh - var(--navbar-height, 80px));
     display: flex;
     align-items: center;
-    background: radial-gradient(circle at 10% 20%, rgba(28, 45, 66, 0.8) 0%, var(--theme-dark-gray) 90%);
+    justify-content: center;
+    background: var(--theme-dark-gray, #121824);
     padding: 3rem 1.5rem;
     overflow: hidden;
 }
 
+/* GIF Background Layer with Low Opacity */
+.hero-bg-gif {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/working3.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5; /* Adjust opacity here for darker/lighter visibility */
+    /* mix-blend-mode: luminosity; Blends nicely with dark theme background */
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Gradient vignette over the background for depth */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(18, 24, 36, 0.4) 0%, rgba(18, 24, 36, 0.95) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
 .hero-container {
-    max-width: var(--container-width);
+    max-width: 900px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 3.5rem;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Centered Content Layout */
+.hero-content {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
     width: 100%;
 }
 
@@ -26,258 +62,155 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(179, 146, 88, 0.12);
-    border: 1px solid rgba(179, 146, 88, 0.25);
-    color: var(--theme-gold);
-    padding: 0.4rem 0.9rem;
+    background: rgba(179, 146, 88, 0.15);
+    border: 1px solid rgba(179, 146, 88, 0.3);
+    color: var(--theme-gold, #b39258);
+    padding: 0.45rem 1.1rem;
     border-radius: 50px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1.25rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 1.5rem;
 }
 
 .badge-dot {
-    width: 6px;
-    height: 6px;
-    background-color: var(--theme-gold);
+    width: 7px;
+    height: 7px;
+    background-color: var(--theme-gold, #b39258);
     border-radius: 50%;
     display: inline-block;
 }
 
-/* Typography & Spacing */
+/* Headline with Bigger Font Size */
 .hero-headline {
-    font-size: clamp(2.2rem, 4vw, 3.25rem);
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--color-text);
-    margin: 0 0 1.25rem 0;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--color-text, #ffffff);
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.02em;
 }
 
 .hero-headline span {
-    color: var(--theme-gold);
+    color: var(--theme-gold, #b39258);
     display: inline-block;
 }
 
 .hero-subtext {
-    font-size: 1.05rem;
-    color: var(--theme-gray);
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--theme-gray, #a0aec0);
     line-height: 1.6;
-    margin: 0 0 2rem 0;
-    max-width: 520px;
+    margin: 0 0 2.5rem 0;
+    max-width: 680px;
 }
 
-/* Buttons */
+/* Centered Buttons */
 .hero-actions {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-bottom: 3.5rem;
+    width: 100%;
 }
 
 .btn-primary {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    background-color: var(--theme-gold);
-    color: var(--theme-black);
+    gap: 0.75rem;
+    background-color: var(--theme-gold, #b39258);
+    color: var(--theme-black, #000000);
     font-weight: 700;
-    font-size: 0.95rem;
-    padding: 0.85rem 1.75rem;
-    border-radius: 8px;
+    font-size: 1.05rem;
+    padding: 1rem 2.25rem;
+    border-radius: 10px;
     transition: all 0.25s ease;
-    box-shadow: 0 4px 15px rgba(179, 146, 88, 0.25);
+    box-shadow: 0 4px 20px rgba(179, 146, 88, 0.3);
+    text-decoration: none;
 }
 
 .btn-primary:hover {
     background-color: #c9a66b;
+    color: white;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(179, 146, 88, 0.35);
+    box-shadow: 0 8px 25px rgba(179, 146, 88, 0.45);
 }
 
 .btn-secondary {
     display: inline-flex;
     align-items: center;
-    color: var(--color-text);
+    color: var(--color-text, #ffffff);
     font-weight: 700;
-    font-size: 0.95rem;
-    padding: 0.85rem 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
+    font-size: 1.05rem;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
     transition: all 0.25s ease;
+    text-decoration: none;
 }
 
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* Proof Bar */
+/* Centered Proof Bar */
 .hero-proof {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    justify-content: center;
+    gap: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 600px;
 }
 
 .proof-item {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .proof-number {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 700;
-    color: var(--color-text);
+    color: var(--color-text, #ffffff);
 }
 
 .proof-label {
-    font-size: 0.75rem;
-    color: var(--theme-gray);
+    font-size: 0.8rem;
+    color: var(--theme-gray, #a0aec0);
 }
 
 .proof-divider {
     width: 1px;
-    height: 28px;
-    background: rgba(255, 255, 255, 0.1);
+    height: 32px;
+    background: rgba(255, 255, 255, 0.12);
 }
 
-/* ========================================
-   Right Column: Showcase Card
-   ======================================== */
-.hero-showcase {
-    display: flex;
-    justify-content: center;
-}
-
-.showcase-card {
-    width: 100%;
-    max-width: 440px;
-    background: rgba(28, 45, 66, 0.7);
-    border: 1px solid rgba(179, 146, 88, 0.3);
-    border-radius: 16px;
-    padding: 1.75rem;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.25rem;
-}
-
-.card-tag {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--theme-gold);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.card-status {
-    font-size: 0.75rem;
-    color: #4ade80;
-    font-weight: 500;
-}
-
-.module-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--color-text);
-    margin: 0 0 0.5rem 0;
-}
-
-.module-desc {
-    font-size: 0.85rem;
-    color: var(--theme-gray);
-    margin: 0 0 1.5rem 0;
-    line-height: 1.5;
-}
-
-/* Progress Indicator */
-.progress-box {
-    background: rgba(0, 0, 0, 0.25);
-    padding: 1rem;
-    border-radius: 10px;
-    margin-bottom: 1.25rem;
-}
-
-.progress-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    margin-bottom: 0.5rem;
-    color: var(--theme-gray);
-}
-
-.gold-text {
-    color: var(--theme-gold);
-    font-weight: 700;
-}
-
-.progress-bar {
-    height: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    width: 85%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--theme-gold), #e2c185);
-    border-radius: 10px;
-}
-
-/* Metric Stats Grid */
-.showcase-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-}
-
-.stat-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 0.85rem;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-.stat-val {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-text);
-}
-
-.stat-lbl {
-    font-size: 0.7rem;
-    color: var(--theme-gray);
-    margin-top: 0.2rem;
-}
-
-/* Responsive Mobile Layout */
-@media (max-width: 900px) {
-    .hero-container {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-
+/* Responsive Mobile Rules */
+@media (max-width: 640px) {
     .hero-actions {
         flex-direction: column;
-        align-items: stretch;
+        gap: 0.85rem;
     }
 
     .btn-primary, .btn-secondary {
+        width: 100%;
         justify-content: center;
     }
 
     .hero-proof {
-        justify-content: space-between;
+        gap: 1.25rem;
+    }
+
+    .proof-number {
+        font-size: 1.1rem;
+    }
+
+    .proof-label {
+        font-size: 0.72rem;
     }
 }
