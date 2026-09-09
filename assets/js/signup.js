@@ -1,12 +1,59 @@
 /* assets/js/signup.js */
 class AppSignup extends HTMLElement {
   connectedCallback() {
-    fetch('components/signup-form.html')
-      .then(res => res.text())
-      .then(data => {
-        this.innerHTML = data;
-        this.initSignup();
-      });
+    this.innerHTML = `
+<section class="signup-section">
+    <div class="signup-container">
+        <div class="signup-card">
+            <div class="signup-header">
+                <span class="signup-badge">Join Finance for BIT</span>
+                <h1 class="signup-title">Create Your Account</h1>
+                <p class="signup-subtitle">Start mastering your financial future with interactive modules today.</p>
+            </div>
+
+            <div id="signupAlert" class="signup-alert" style="display: none;"></div>
+
+            <form id="signupForm" class="signup-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="e.g. John Doe" required>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="signupUserId">User ID</label>
+                        <input type="text" id="signupUserId" placeholder="e.g. johndoe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" placeholder="e.g. john@example.com" required>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="Minimum 6 characters" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" placeholder="Re-enter password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-signup-submit">Create Account</button>
+            </form>
+
+            <div class="signup-footer">
+                <p>Already have an account? <a href="#" id="openLoginFromSignup" class="signup-link">Log In</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+`;
+    this.initSignup();
   }
 
   initSignup() {
@@ -16,7 +63,7 @@ class AppSignup extends HTMLElement {
     if (form) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
-
+        
         const name = this.querySelector('#signupName').value.trim();
         const userId = this.querySelector('#signupUserId').value.trim();
         const email = this.querySelector('#signupEmail').value.trim();
@@ -30,7 +77,8 @@ class AppSignup extends HTMLElement {
     if (openLoginBtn) {
       openLoginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        window.location.href = 'index.html?openLogin=true';
+        const rootPath = window.location.pathname.replace(/\\/g, '/').includes('/pages/') ? '../index.html' : 'index.html';
+        window.location.href = `${rootPath}?openLogin=true`;
       });
     }
   }
@@ -77,7 +125,8 @@ class AppSignup extends HTMLElement {
       this.showAlert('Account created successfully! Redirecting to login...', 'success');
 
       setTimeout(() => {
-        window.location.href = 'index.html?openLogin=true&registered=true';
+        const rootPath = window.location.pathname.replace(/\\/g, '/').includes('/pages/') ? '../index.html' : 'index.html';
+        window.location.href = `${rootPath}?openLogin=true&registered=true`;
       }, 1200);
     } catch (err) {
       console.error(err);

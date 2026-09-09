@@ -1,19 +1,53 @@
 /* assets/js/login-modal.js */
 class AppLoginModal extends HTMLElement {
   connectedCallback() {
-    fetch('components/login-modal.html')
-      .then(res => res.text())
-      .then(data => {
-        this.innerHTML = data;
-        this.initModal();
-      });
+    const path = window.location.pathname.replace(/\\/g, '/');
+    let signupLink = 'pages/signup.html';
+    if (path.includes('/pages/submodules/')) {
+      signupLink = '../signup.html';
+    } else if (path.includes('/pages/')) {
+      signupLink = 'signup.html';
+    }
+
+    this.innerHTML = `
+<div id="loginModalOverlay" class="modal-overlay" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-labelledby="loginTitle">
+        <button type="button" class="modal-close" id="closeModalBtn" aria-label="Close modal">&times;</button>
+        
+        <div class="modal-header">
+            <h2 id="loginTitle" class="modal-title">Welcome Back</h2>
+            <p class="modal-subtitle">Log in to access your financial courses</p>
+        </div>
+
+        <div id="loginAlert" class="login-alert" style="display: none;"></div>
+
+        <form id="loginForm" class="login-form" autocomplete="off">
+            <div class="form-group">
+                <label for="loginIdentifier">User ID or Email</label>
+                <input type="text" id="loginIdentifier" placeholder="e.g. johndoe or john@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="btn-login-submit">Log In</button>
+        </form>
+
+        <div class="modal-footer">
+            <p>Don't have an account? <a href="${signupLink}" class="modal-link">Sign Up</a></p>
+        </div>
+    </div>
+</div>
+`;
+    this.initModal();
   }
 
   initModal() {
     const overlay = this.querySelector('#loginModalOverlay');
     const closeBtn = this.querySelector('#closeModalBtn');
     const form = this.querySelector('#loginForm');
-    const alertBox = this.querySelector('#loginAlert');
 
     // Global listener to open modal from anywhere (e.g. navbar login button)
     window.addEventListener('open-login-modal', () => {
@@ -138,8 +172,7 @@ class AppLoginModal extends HTMLElement {
           this.closeModal();
           const form = this.querySelector('#loginForm');
           if (form) form.reset();
-          window.location.reload();
-        }, 800);
+        }, 1200);
 
       } else {
         this.showAlert('Invalid User ID / Email or Password. Please try again.', 'error');

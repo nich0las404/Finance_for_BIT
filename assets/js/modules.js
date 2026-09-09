@@ -1,13 +1,51 @@
 /* assets/js/modules.js - Modules Page Component Logic */
 class AppModules extends HTMLElement {
   connectedCallback() {
-    fetch('components/modules.html')
-      .then(res => res.text())
-      .then(html => {
-        this.innerHTML = html;
-        this.init();
-      })
-      .catch(err => console.error('Error loading modules component:', err));
+    this.innerHTML = `
+<div class="modules-container">
+    
+    <!-- Hero / Section Title -->
+    <div class="modules-header">
+        <span class="modules-badge">Curriculum Room</span>
+        <h1 class="modules-title">Interactive <span>Learning Modules</span></h1>
+        <p class="modules-subtitle">
+            Progress through 4 core modules and 20 submodules. Complete practice Q&As and module tests to unlock advanced levels.
+        </p>
+    </div>
+
+    <!-- Auth Guard Overlay (Shown when user is not logged in) -->
+    <div class="auth-guard-card" id="modulesAuthGuard" style="display: none;">
+        <div class="auth-guard-icon">🔒</div>
+        <h3>Account Required to Track Progress</h3>
+        <p>You must be signed in to access submodules and save your learning progress.</p>
+        <div class="auth-guard-actions">
+            <button class="btn-primary" id="guardLoginBtn">Log In / Sign Up</button>
+            <button class="btn-secondary" id="guardDemoBtn">⚡ Quick Demo Login (All Unlocked)</button>
+        </div>
+    </div>
+
+    <!-- 4 Module Accordion Lines Container -->
+    <div class="modules-list" id="modulesList">
+        <!-- Rendered dynamically via assets/js/modules.js -->
+    </div>
+
+    <!-- Bottom Status & Progress Bar -->
+    <div class="modules-footer-progress" id="modulesProgressFooter">
+        <div class="progress-info">
+            <div class="progress-text-group">
+                <span class="progress-label">Overall Program Progress</span>
+                <span class="progress-count" id="unlockedCountText">0 / 20 Unlocked</span>
+            </div>
+            <span class="progress-percentage" id="unlockedPercentText">0%</span>
+        </div>
+        <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
+        </div>
+    </div>
+
+</div>
+`;
+    this.init();
   }
 
   init() {
@@ -123,7 +161,7 @@ class AppModules extends HTMLElement {
                 </div>
                 <div class="submodule-action">
                   ${statusBadgeHtml}
-                  <a href="${isUnlocked ? `submodule.html?id=${sub.id}` : '#'}" 
+                  <a href="${isUnlocked ? `submodules/submodule-${sub.id}.html` : '#'}" 
                      class="btn-start-submodule ${!isUnlocked ? 'disabled' : ''}">
                     ${isDone ? 'Review' : (sub.isFinalTest ? 'Start Final Test' : 'Start Learning')}
                   </a>

@@ -1,13 +1,40 @@
 /* assets/js/navbar.js */
 class AppNavbar extends HTMLElement {
   connectedCallback() {
-    fetch('components/navbar.html')
-      .then(res => res.text())
-      .then(data => {
-        this.innerHTML = data;
-        this.initToggle();
-        this.initAuth();
-      });
+    const path = window.location.pathname.replace(/\\/g, '/');
+    let rootPrefix = './';
+    let pagesPrefix = 'pages/';
+
+    if (path.includes('/pages/submodules/')) {
+      rootPrefix = '../../';
+      pagesPrefix = '../';
+    } else if (path.includes('/pages/')) {
+      rootPrefix = '../';
+      pagesPrefix = './';
+    }
+
+    this.innerHTML = `
+<header class="navbar">
+    <div class="navbar__container">
+        <a href="${rootPrefix}index.html">
+            <img src="${rootPrefix}assets/images/logo.png" alt="Wobble Logo" class="navbar__logo">
+        </a>
+        <button class="navbar__toggle" id="navbarToggle" aria-label="Toggle navigation" aria-controls="navbarMenu" aria-expanded="false">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+        <nav id="navbarMenu" class="navbar__menu" role="navigation" aria-labelledby="navbarToggle">
+            <ul class="navbar__list">
+                <li class="navbar__item"><a href="${pagesPrefix}modules.html" class="navbar__link">Modules</a></li>
+                <li class="navbar__item"><a href="${pagesPrefix}team.html" class="navbar__link">Team Introduction</a></li>
+                <li class="navbar__item"><a href="${pagesPrefix}about.html" class="navbar__link">About</a></li>
+                <li class="navbar__item navbar__item--cta"><a href="${pagesPrefix}signup.html" id="loginNavBtn" class="navbar__link navbar__link--cta">Log In</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+`;
+    this.initToggle();
+    this.initAuth();
   }
 
   initToggle() {

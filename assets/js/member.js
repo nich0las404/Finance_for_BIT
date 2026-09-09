@@ -11,7 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    fetch('assets/json/team.json')
+    const isInsidePages = window.location.pathname.replace(/\\/g, '/').includes('/pages/');
+    const fetchPath = isInsidePages ? '../assets/json/team.json' : 'assets/json/team.json';
+    const logoFallback = isInsidePages ? '../assets/images/logo.png' : 'assets/images/logo.png';
+
+    fetch(fetchPath)
         .then(res => res.json())
         .then(members => {
             const member = members.find(m => m.id === memberId);
@@ -25,7 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = member.name.trim() || `Team Member ${member.id}`;
             const role = member.role.trim() || 'Core Contributor';
             const studentId = member.student_id.trim() ? `Student ID: ${member.student_id}` : 'Student ID';
-            const imageSrc = member.profile_img.trim() || 'assets/images/logo.png';
+            const rawImg = member.profile_img.trim();
+            const imageSrc = rawImg ? (isInsidePages ? `../${rawImg}` : rawImg) : logoFallback;
             const about = member.about.trim() || 'No description provided yet.';
 
             contentBox.innerHTML = `
@@ -46,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <!-- Right Column: Big Feature Image -->
                 <div class="member-media">
                     <div class="image-frame">
-                        <img src="${imageSrc}" alt="${name}" onerror="this.src='assets/images/logo.png'">
+                        <img src="${imageSrc}" alt="${name}" onerror="this.src='${logoFallback}'">
                     </div>
                 </div>
             `;

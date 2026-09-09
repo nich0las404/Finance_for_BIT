@@ -1,0 +1,102 @@
+/* assets/js/submodule-quiz.js - Submodule Multiple-Choice Quiz & Progression logic */
+document.addEventListener('DOMContentLoaded', () => {
+  const quizForm = document.getElementById('submoduleQuizForm');
+  const quizFeedback = document.getElementById('quizFeedback');
+  const currentSubId = document.body.getAttribute('data-submodule-id') || '1-1';
+
+  if (!quizForm) return;
+
+  quizForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    let allAnswered = true;
+    let correctCount = 0;
+    const questions = quizForm.querySelectorAll('.quiz-question-box');
+
+    questions.forEach((qBox) => {
+      const selected = qBox.querySelector('input[type="radio"]:checked');
+      const options = qBox.querySelectorAll('.quiz-option');
+
+      // Reset option styles
+      options.forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+      });
+
+      if (!selected) {
+        allAnswered = false;
+        return;
+      }
+
+      const isCorrect = selected.getAttribute('data-correct') === 'true';
+      const parentOption = selected.closest('.quiz-option');
+
+      if (isCorrect) {
+        correctCount++;
+        if (parentOption) parentOption.classList.add('correct');
+      } else {
+        if (parentOption) parentOption.classList.add('incorrect');
+        // Highlight correct choice for learning feedback
+        const correctRadio = qBox.querySelector('input[data-correct="true"]');
+        if (correctRadio) {
+          const correctOpt = correctRadio.closest('.quiz-option');
+          if (correctOpt) correctOpt.classList.add('correct');
+        }
+      }
+    });
+
+    if (!allAnswered) {
+      if (quizFeedback) {
+        quizFeedback.style.color = '#f39c12';
+        quizFeedback.textContent = '⚠️ Please answer all questions before submitting.';
+      }
+      return;
+    }
+
+    const totalQuestions = questions.length;
+    
+    if (correctCount === totalQuestions) {
+      // Save progression
+      handleSubmoduleCompletion(currentSubId);
+
+      if (quizFeedback) {
+        quizFeedback.style.color = '#2ecc71';
+        quizFeedback.innerHTML = `🎉 <strong>Perfect Score! (${correctCount}/${totalQuestions})</strong> Submodule completed and next submodule unlocked.`;
+      }
+    } else {
+      if (quizFeedback) {
+        quizFeedback.style.color = '#e74c3c';
+        quizFeedback.innerHTML = `❌ You scored ${correctCount}/${totalQuestions}. Review the correct answers highlighted above and try again!`;
+      }
+    }
+  });
+
+  function handleSubmoduleCompletion(subId) {
+    if (!window.FinanceAccounts) return;
+
+    const session = window.FinanceAccounts.getActiveSession();
+    const userId = session ? session.userId : 'demo';
+    const userProgress = window.FinanceAccounts.getUserProgress(userId);
+
+    // Add current subId to completed
+    if (!userProgress.completedSubmodules.includes(subId)) {
+      userProgress.completedSubmodules.push(subId);
+    }
+
+    // Determine next submodule ID
+    const modulesData = window.FinanceModulesData || [];
+    const allSubIds = [];
+    modulesData.forEach(m => {
+      m.submodules.forEach(s => allSubIds.push(s.id));
+    });
+
+    const currentIndex = allSubIds.indexOf(subId);
+    if (currentIndex !== -1 && currentIndex + 1 < allSubIds.length) {
+      const nextSubId = allSubIds[currentIndex + 1];
+      if (!userProgress.unlockedSubmodules.includes(nextSubId)) {
+        userProgress.unlockedSubmodules.push(nextSubId);
+      }
+    }
+
+    window.FinanceAccounts.saveUserProgress(userId, userProgress);
+  }
+});

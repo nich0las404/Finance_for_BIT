@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- EDIT HERE: Page Title -->
+    <title>Submodule 1.5: Module 1 Capstone & Minigame | Finance for BIT</title>
+    
+    <!-- Theme & Styles -->
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../assets/css/navbar.css">
+    <link rel="stylesheet" href="../../assets/css/submodule.css">
+    <link rel="stylesheet" href="../../assets/css/login-modal.css">
+
+    <!-- Component Scripts -->
+    <script src="../../assets/js/accounts.js" defer></script>
+    <script src="../../assets/js/modules-data.js" defer></script>
+    <script src="../../assets/js/navbar.js" defer></script>
+    <script src="../../assets/js/submodule-quiz.js" defer></script>
+    <script src="../../assets/js/login-modal.js" defer></script>
+</head>
+<body data-submodule-id="1-5">
+
+    <app-navbar></app-navbar>
+
+    <main class="submodule-page">
+        <div class="submodule-container">
+            
+            <a href="../modules.html" class="back-link">
+                ← Back to Curriculum Room
+            </a>
+
+            <!-- Submodule Main Header Card -->
+            <div class="submodule-hero">
+                <span class="submodule-tag">Module 1 Capstone</span>
+                <!-- EDIT HERE: Title -->
+                <h1 class="submodule-main-title">Module 1 Final Challenge: Financial Statement Puzzle</h1>
+                <!-- EDIT HERE: Description -->
+                <p class="submodule-lead">
+                    Congratulations on completing all submodules in Module 1! Solve the interactive puzzle below to prove your mastery of Financial Accounting and unlock Module 2.
+                </p>
+            </div>
+
+            <!-- SECTION 1: Dark Header Pill Banner -->
+            <div class="submodule-header-banner">
+                <!-- EDIT HERE: Minigame Banner Title -->
+                <h2>🎮 Interactive Capstone Minigame</h2>
+            </div>
+
+            <!-- SECTION 2: Minigame Interactive Container -->
+            <div class="learning-card">
+                <div class="card-section-header">
+                    <h3>🧩 Financial Accounting Master Puzzle</h3>
+                    <span class="read-time-pill">Module Qualification Test</span>
+                </div>
+                
+                <p style="margin-bottom: 1.5rem;">
+                    <!-- EDIT HERE: Minigame Instructions -->
+                    Match the financial items to their correct statement categories (Income Statement, Balance Sheet, or Cash Flow Statement).
+                </p>
+
+                <!-- EDIT HERE: Place your minigame HTML code / game container inside this div -->
+                <div id="minigameContainer" style="background: rgba(0,0,0,0.3); border: 2px dashed rgba(179,146,88,0.4); border-radius: 12px; padding: 2.5rem; text-align: center;">
+                    <h4 style="color: var(--theme-gold, #b39258); font-size: 1.3rem; margin-bottom: 1rem;">
+                        [ Your Minigame / Puzzle HTML Code Goes Here ]
+                    </h4>
+                    <p style="color: #a0aec0; max-width: 500px; margin: 0 auto 1.5rem;">
+                        You can link a custom JavaScript file (e.g., <code>assets/js/minigames/module1-game.js</code>) to render your drag-and-drop or interactive puzzle inside this container.
+                    </p>
+                    <button class="btn-complete-submodule" id="completeModuleBtn" onclick="alert('🎉 Congratulations! You completed Module 1! Module 2 is now unlocked.'); window.location.href='../modules.html';">
+                        ✓ Finish Minigame & Unlock Module 2
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <app-login-modal></app-login-modal>
+
+</body>
+</html>

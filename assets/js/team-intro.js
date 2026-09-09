@@ -1,32 +1,52 @@
 class AppTeamIntro extends HTMLElement {
   connectedCallback() {
-    fetch('components/team-intro.html')
-      .then(res => res.text())
-      .then(html => {
-        this.innerHTML = html;
-        this.loadTeamMembers();
-      });
+    this.innerHTML = `
+<section class="team-section">
+    <div class="team-container">
+        
+        <div class="team-header">
+            <span class="team-badge">The Team Behind Finance for BIT</span>
+            <h1 class="team-title">Meet Our <span>Contributors</span></h1>
+            <p class="team-subtitle">
+                Bridging the financial literacy gap with interactive learning modules and accessible design.
+            </p>
+        </div>
+
+        <!-- Dynamic Grid Container -->
+        <div class="team-grid" id="team-grid">
+            <!-- Rendered automatically from assets/json/team.json -->
+        </div>
+
+    </div>
+</section>
+`;
+    this.loadTeamMembers();
   }
 
   loadTeamMembers() {
     const grid = this.querySelector('#team-grid');
     if (!grid) return;
 
-    fetch('assets/json/team.json')
+    const isInsidePages = window.location.pathname.replace(/\\/g, '/').includes('/pages/');
+    const fetchPath = isInsidePages ? '../assets/json/team.json' : 'assets/json/team.json';
+    const logoFallback = isInsidePages ? '../assets/images/logo.png' : 'assets/images/logo.png';
+
+    fetch(fetchPath)
       .then(res => res.json())
       .then(members => {
         grid.innerHTML = members.map(member => {
           // Fallbacks for empty values
           const name = member.name.trim() || `Team Member ${member.id}`;
           const role = member.role.trim() || 'Core Contributor';
-          const imageSrc = member.profile_img.trim() || 'assets/images/logo.png';
+          const rawImg = member.profile_img.trim();
+          const imageSrc = rawImg ? (isInsidePages ? `../${rawImg}` : rawImg) : logoFallback;
           const studentId = member.student_id.trim() ? `ID: ${member.student_id}` : 'Student ID';
           const about = member.about.trim() || 'Dedicated to improving financial literacy through clear, first-principles education and interactive tools.';
 
           return `
             <a href="member.html?id=${member.id}" class="team-card">
               <div class="card-avatar-box">
-                <img src="${imageSrc}" alt="${name}" class="card-avatar" onerror="this.src='assets/images/logo.png'">
+                <img src="${imageSrc}" alt="${name}" class="card-avatar" onerror="this.src='${logoFallback}'">
               </div>
               <div class="card-body">
                 <span class="card-role">${role}</span>
