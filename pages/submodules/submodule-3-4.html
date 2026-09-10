@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- EDIT HERE: Page Title -->
+    <title>Submodule 3.4: Enterprise Value to Equity Value Bridge | Finance for BIT</title>
+
+    <!-- Theme & Styles -->
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../assets/css/navbar.css">
+    <link rel="stylesheet" href="../../assets/css/submodule.css">
+    <link rel="stylesheet" href="../../assets/css/login-modal.css">
+
+    <!-- Component Scripts -->
+    <script src="../../assets/js/accounts.js" defer></script>
+    <script src="../../assets/js/modules-data.js" defer></script>
+    <script src="../../assets/js/navbar.js" defer></script>
+    <script src="../../assets/js/submodule-quiz.js" defer></script>
+    <script src="../../assets/js/login-modal.js" defer></script>
+</head>
+
+<body data-submodule-id="3-4">
+
+    <app-navbar></app-navbar>
+
+    <main class="submodule-page">
+        <div class="submodule-container">
+
+            <!-- Breadcrumb Navigation back to Curriculum Room -->
+            <a href="../modules.html" class="back-link">
+                ← Back to Curriculum Room
+            </a>
+
+            <!-- Submodule Main Header Card -->
+            <div class="submodule-hero">
+                <!-- EDIT HERE: Submodule Tag & Number -->
+                <span class="submodule-tag">Submodule 3.4</span>
+
+                <!-- EDIT HERE: Main Submodule Title -->
+                <h1 class="submodule-main-title">Enterprise Value to Equity Value Bridge</h1>
+
+                <!-- EDIT HERE: Submodule Lead Summary -->
+                <p class="submodule-lead">
+                    Learn how to translate the total value of a business's operations into the actual value belonging to its shareholders, completing the final step of a DCF valuation.
+                </p>
+            </div>
+
+            <!-- SECTION 1 -->
+            <div class="submodule-header-banner">
+                <!-- EDIT HERE: Section 1 Header Title -->
+                <h2>Enterprise Value to Equity Value Bridge</h2>
+            </div>
+
+            <!-- SECTION 2 -->
+            <div class="submodule-media-grid">
+
+                <!-- LEFT COLUMN: Photo / Table Image -->
+                <div class="submodule-image-col">
+                    <!-- EDIT HERE: Replace src with your image file path (e.g., ../../assets/images/your-image.png) -->
+                    <img src="../../assets/images/submodule3-4-1.png" alt="Enterprise Value to Equity Value Bridge Diagram"
+                        id="submoduleMainImage">
+                </div>
+
+                <!-- RIGHT COLUMN: Paragraph Content -->
+                <div class="submodule-text-col">
+                    <!-- EDIT HERE: Paragraph 1 -->
+                    <p class="justified-text">
+                        When you build a Discounted Cash Flow (DCF) model using Free Cash Flow to Firm (FCFF) and discount it by the WACC, the result is the Enterprise Value (EV). This represents the total value of the company's core business operations, regardless of how it is financed.
+                    </p>
+
+                    <!-- EDIT HERE: Paragraph 2 -->
+                    <p class="justified-text">
+                        However, investors don't buy "Enterprise Value"; they buy shares of stock. To find out what those shares are actually worth, we must build a "bridge" from Enterprise Value down to Equity Value.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- SECTION 3-->
+            <div class="learning-card">
+
+                <!-- EDIT HERE: Gold Sub-heading -->
+                <h3 class="section-title-gold">The Core Formula: The Bridge</h3>
+
+                <!-- EDIT HERE: Section Text -->
+                <p class="justified-text">
+                    Enterprise Value represents the value of the business to all capital providers (both debt and equity holders). To isolate the value that belongs strictly to the common shareholders, we must account for the company's non-operating assets and financial obligations.
+                </p>
+
+                <!-- EDIT HERE: Formula Callout Box -->
+                <div class="formula-highlight">
+                    💡 <strong>Equity Value = Enterprise Value + Cash & Cash Equivalents - Total Debt - Preferred Stock - Minority Interest</strong>
+                </div>
+
+                <p class="justified-text">
+                    <strong>Why add Cash?</strong> Cash is a non-operating asset. It doesn't generate operating cash flow, but it belongs to the shareholders. If you buy the whole company, you get its cash.
+                </p>
+
+                <p class="justified-text">
+                    <strong>Why subtract Debt?</strong> Debt holders have a senior claim on the company's assets. Before equity holders get a single dollar, all debt must be paid off. Therefore, debt reduces the value available to shareholders.
+                </p>
+
+                <h3 class="section-title-gold" style="margin-top: 2rem;">Real-World Corporate Finance Example: The "House" Analogy</h3>
+
+                <p class="justified-text">
+                    The easiest way to understand this bridge is to think about buying a house. 
+                </p>
+
+                <p class="justified-text">
+                    Suppose a house has a market value of <strong>$500,000</strong>. This is the <strong>Enterprise Value</strong> of the property. 
+                </p>
+
+                <p class="justified-text">
+                    However, the current owner still has a <strong>$300,000 mortgage (Debt)</strong> on the house. Additionally, when you buy the house, you also get a safe in the basement containing <strong>$20,000 in cash (Cash)</strong>.
+                </p>
+
+                <p class="justified-text">
+                    How much cash do you actually need to pay the seller to acquire the house? 
+                    <strong>$500,000 (House Value) - $300,000 (Mortgage) + $20,000 (Cash in safe) = $220,000.</strong>
+                </p>
+
+                <div class="formula-highlight">
+                    💡 <strong>Result:</strong> The $220,000 is the <strong>Equity Value</strong>. In corporate finance, if you acquire a company, you pay the Equity Value, but you effectively assume control of the Enterprise Value and its associated debt and cash.
+                </div>
+
+                <h3 class="section-title-gold" style="margin-top: 2rem;">From Equity Value to Share Price</h3>
+
+                <p class="justified-text">
+                    Once you have calculated the total Equity Value, the final step in a DCF model is to divide this number by the fully diluted share count (the total number of shares outstanding, including stock options and warrants).
+                </p>
+
+                <p class="justified-text">
+                    <strong>Intrinsic Share Price = Equity Value / Fully Diluted Shares Outstanding</strong>
+                </p>
+
+                <p class="justified-text">
+                    Analysts then compare this intrinsic share price to the company's current trading price on the stock market. If the intrinsic price is higher, the stock is considered undervalued (a "Buy"). If it is lower, the stock is overvalued (a "Sell").
+                </p>
+
+            </div>
+
+            <!-- Section 4 -->
+            <div class="quiz-card" id="quizCard">
+                <div class="card-section-header">
+                    <h3>📝 Practice Quiz & Submodule Check</h3>
+                    <span class="read-time-pill">Complete all questions to unlock Submodule 3.5</span>
+                </div>
+                <p style="color: #a0aec0; margin-bottom: 1.5rem;">
+                    Answer the multiple-choice questions below. Scoring a perfect score will automatically mark this
+                    submodule as completed!
+                </p>
+
+                <form id="submoduleQuizForm">
+
+                    <!-- EDIT HERE: Question 1 -->
+                    <div class="quiz-question-box">
+                        <p class="question-text">Q1: What does a standard DCF model using Free Cash Flow to Firm (FCFF) and WACC primarily calculate?</p>
+                        <div class="quiz-options">
+                            <!-- Set data-correct="true" on the correct radio option -->
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false"> Equity Value
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="true"> Enterprise Value
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" data-correct="false"> Market Capitalization
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- EDIT HERE: Question 2 -->
+                    <div class="quiz-question-box">
+                        <p class="question-text">Q2: When bridging from Enterprise Value to Equity Value, how do you treat the company's Cash and Total Debt?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false"> Subtract Cash and Add Debt
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="false"> Subtract both Cash and Debt
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" data-correct="true"> Add Cash and Subtract Debt
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- EDIT HERE: Question 3 -->
+                    <div class="quiz-question-box">
+                        <p class="question-text">Q3: If a company has an Enterprise Value of $500 million, $50 million in Cash, and $100 million in Total Debt, what is its Equity Value?</p>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false"> $550 million
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="true"> $450 million
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" data-correct="false"> $350 million
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Feedback message display -->
+                    <div id="quizFeedback" style="margin-top: 1.5rem; font-weight: 700;"></div>
+
+                    <!-- Submit Quiz & Progression Button -->
+                    <button type="submit" class="btn-complete-submodule" style="margin-top: 1.5rem; width: 100%;">
+                        ✓ Submit Quiz & Unlock Next Submodule
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <app-login-modal></app-login-modal>
+
+</body>
+
+</html>
