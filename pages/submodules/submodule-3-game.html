@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3 Minigame: Who Wants to Be a Millionaire? | Finance for BIT</title>
+
+    <!-- Theme & Styles -->
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../assets/css/navbar.css">
+    <link rel="stylesheet" href="../../assets/css/submodule.css">
+    <link rel="stylesheet" href="../../assets/css/login-modal.css">
+
+    <!-- Component Scripts -->
+    <script src="../../assets/js/accounts.js" defer></script>
+    <script src="../../assets/js/modules-data.js" defer></script>
+    <script src="../../assets/js/navbar.js" defer></script>
+    <script src="../../assets/js/login-modal.js" defer></script>
+
+    <style>
+        .game-wrapper {
+            background: rgba(13, 19, 29, 0.85);
+            border: 1px solid rgba(179, 146, 88, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+            position: relative;
+            min-height: 520px;
+        }
+
+        /* Top Sound Bar */
+        .sound-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-sound-toggle {
+            background: rgba(15, 23, 42, 0.8);
+            color: #b39258;
+            border: 1px solid rgba(179, 146, 88, 0.5);
+            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-sound-toggle:hover {
+            background: rgba(179, 146, 88, 0.2);
+            border-color: #b39258;
+            color: #fff;
+        }
+
+        /* LOBBY SCREEN */
+        .lobby-card {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .lobby-logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .lobby-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #ffffff 0%, #b39258 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lobby-desc {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .lobby-rules {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 1.25rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .lobby-rules h4 {
+            color: #b39258;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lobby-rules ul {
+            margin: 0;
+            padding-left: 1.25rem;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .btn-play-game {
+            background: linear-gradient(135deg, #b39258 0%, #d4af37 100%);
+            color: #0d131d;
+            font-size: 1.25rem;
+            font-weight: 900;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(179, 146, 88, 0.4);
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-play-game:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 30px rgba(179, 146, 88, 0.6);
+        }
+
+        /* GAME SCREEN LAYOUT */
+        .millionaire-layout {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 1.75rem;
+        }
+
+        @media (max-width: 850px) {
+            .millionaire-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Question Box & Stage */
+        .q-stage {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stage-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .btn-lifeline {
+            background: rgba(179, 146, 88, 0.15);
+            color: #b39258;
+            border: 1px solid #b39258;
+            padding: 0.55rem 1.2rem;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-lifeline:hover:not(:disabled) {
+            background: #b39258;
+            color: #0d131d;
+            box-shadow: 0 0 15px rgba(179, 146, 88, 0.4);
+        }
+
+        .btn-lifeline:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            border-color: #475569;
+            color: #64748b;
+        }
+
+        /* Timer Counter */
+        .timer-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #b39258;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #b39258;
+            box-shadow: 0 0 15px rgba(179, 146, 88, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .timer-box.warning {
+            border-color: #ef4444;
+            color: #ef4444;
+            animation: timerPulse 0.6s infinite;
+        }
+
+        @keyframes timerPulse {
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+            }
+        }
+
+        .m-question-box {
+            background: linear-gradient(135deg, rgba(28, 45, 66, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 2px solid rgba(179, 146, 88, 0.6);
+            border-radius: 14px;
+            padding: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            line-height: 1.5;
+        }
+
+        .m-options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .m-options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .m-option-btn {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(179, 146, 88, 0.4);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+            color: #ffffff;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .m-option-btn:hover:not(:disabled) {
+            background: rgba(179, 146, 88, 0.2);
+            border-color: #b39258;
+            transform: translateY(-2px);
+        }
+
+        .m-option-btn.selected {
+            background: rgba(234, 179, 8, 0.3) !important;
+            border-color: #eab308 !important;
+            color: #fef08a !important;
+            animation: suspensePulse 0.6s infinite;
+        }
+
+        @keyframes suspensePulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 15px rgba(234, 179, 8, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(234, 179, 8, 0.8);
+            }
+        }
+
+        .m-option-btn.correct {
+            background: rgba(34, 197, 94, 0.35) !important;
+            border-color: #22c55e !important;
+            color: #86efac !important;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5) !important;
+        }
+
+        .m-option-btn.wrong {
+            background: rgba(239, 68, 68, 0.35) !important;
+            border-color: #ef4444 !important;
+            color: #fca5a5 !important;
+        }
+
+        .m-option-prefix {
+            color: #b39258;
+            font-weight: 900;
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .m-option-btn.selected .m-option-prefix {
+            color: #fef08a;
+        }
+
+        .m-option-btn.correct .m-option-prefix {
+            color: #86efac;
+        }
+
+        .m-option-btn.wrong .m-option-prefix {
+            color: #fca5a5;
+        }
+
+        /* Money Ladder Sidebar */
+        .ladder-panel {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .ladder-title {
+            color: #b39258;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .ladder-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 0.5rem;
+        }
+
+        .ladder-step {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #64748b;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid transparent;
+            transition: all 0.25s ease;
+        }
+
+        .ladder-step.active {
+            background: rgba(179, 146, 88, 0.25);
+            border-color: #b39258;
+            color: #b39258;
+            box-shadow: 0 0 15px rgba(179, 146, 88, 0.3);
+            transform: scale(1.02);
+        }
+
+        .ladder-step.completed {
+            color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        /* Status & Victory Overlay */
+        .result-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(9, 14, 23, 0.94);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 60;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .result-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .result-card {
+            background: rgba(28, 45, 66, 0.95);
+            border: 1px solid rgba(179, 146, 88, 0.5);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-desc {
+            color: #94a3b8;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 1.75rem;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            background: var(--theme-gold, #b39258);
+            color: #0d131d;
+            font-weight: 800;
+            border: none;
+            padding: 0.85rem 1.75rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-action:hover {
+            background: #c5a367;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(179, 146, 88, 0.3);
+        }
+
+        .btn-action-secondary {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-action-secondary:hover {
+            background: #334155;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body data-submodule-id="3-game">
+
+    <app-navbar></app-navbar>
+
+    <main class="submodule-page">
+        <div class="submodule-container">
+
+            <a href="submodule-3-4.html" class="back-link">
+                ← Back to Submodule 3.4
+            </a>
+
+            <div class="submodule-hero">
+                <span class="submodule-tag">Module 3 Interactive Minigame</span>
+                <h1 class="submodule-main-title">💰 Who Wants to Be a Millionaire? (DCF Edition)</h1>
+                <p class="submodule-lead">
+                    Answer 5 financial valuation questions to climb the ladder to $1,000,000! Use your 50:50 lifelines
+                    wisely.
+                </p>
+            </div>
+
+            <div class="game-wrapper">
+
+                <!-- Sound Control Bar -->
+                <div class="sound-bar">
+                    <button class="btn-sound-toggle" id="soundToggleBtn" onclick="toggleMute()">
+                        <span id="soundIcon">🔊</span> <span id="soundLabel">Sound ON</span>
+                    </button>
+                    <div style="font-size: 0.85rem; color: #94a3b8;" id="statusIndicator">Ready</div>
+                </div>
+
+                <!-- LOBBY SCREEN -->
+                <div id="lobbyScreen" class="lobby-card">
+                    <div class="lobby-logo">💰</div>
+                    <h2 class="lobby-title">Who Wants to Be a Millionaire?</h2>
+                    <p class="lobby-desc">Test your DCF valuation and corporate finance mastery across 5 randomized
+                        level tiers!</p>
+
+                    <div class="lobby-rules">
+                        <h4>Game Rules & Lifelines:</h4>
+                        <ul>
+                            <li><strong>5 Question Tiers</strong>: $100 -> $1,000 -> $10,000 -> $100,000 -> $1,000,000
+                            </li>
+                            <li><strong>30-Question Pool</strong>: Each new game selects 5 fresh random questions!</li>
+                            <li><strong>60-Second Timer</strong>: Every question has a 60-second limit.</li>
+                            <li><strong>⚡ 50:50 Lifeline</strong>: Usable <strong>TWICE</strong> per game to remove 2
+                                wrong answers.</li>
+                            <li>Reach <strong>$1,000,000</strong> to complete Module 3 and unlock Module 4!</li>
+                        </ul>
+                    </div>
+
+                    <button class="btn-play-game" onclick="startGame()">🎮 PLAY GAME</button>
+                </div>
+
+                <!-- GAMEPLAY SCREEN -->
+                <div id="gameScreen" class="millionaire-layout" style="display: none;">
+
+                    <!-- Left: Question & Lifelines -->
+                    <div class="q-stage">
+                        <div class="stage-top-bar">
+                            <button class="btn-lifeline" id="btn5050" onclick="use5050()">
+                                ⚡ 50:50 Lifeline (<span id="lifelineCount">2</span> left)
+                            </button>
+                            <div class="timer-box" id="timerBox">60</div>
+                        </div>
+
+                        <!-- Question Text -->
+                        <div class="m-question-box" id="questionText">
+                            Loading question...
+                        </div>
+
+                        <!-- Options Grid -->
+                        <div class="m-options-grid" id="optionsGrid">
+                            <!-- Rendered dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Right: Money Ladder -->
+                    <div class="ladder-panel">
+                        <div class="ladder-title">Money Ladder</div>
+                        <ul class="ladder-list" id="ladderList">
+                            <!-- Rendered dynamically -->
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- RESULT / VICTORY OVERLAY -->
+                <div class="result-overlay" id="resultOverlay">
+                    <div class="result-card">
+                        <div class="result-icon" id="resultIcon">🎉</div>
+                        <h2 class="result-title" id="resultTitle">Level Passed!</h2>
+                        <p class="result-desc" id="resultDesc">Detailed result information will appear here.</p>
+
+                        <div class="result-actions" id="resultActions">
+                            <!-- Buttons rendered dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <app-login-modal></app-login-modal>
+
+    <script>
+        /* ===================================================
+           30-QUESTION POOL ORGANIZED INTO 5 PRIZE TIERS
+           =================================================== */
+        const MILLIONAIRE_POOL = [
+            // Tier 1 ($100 Level) - Fundamentals
+            [
+                { question: "What does DCF stand for in corporate finance valuation?", options: ["Discounted Cash Flow", "Direct Capital Finance", "Debt Coverage Fund", "Dividend Cash Factor"], correct: 0 },
+                { question: "What represents cash available to all capital providers after operating expenses and CapEx?", options: ["Free Cash Flow to Firm (FCFF)", "Net Income", "Retained Earnings", "Gross Profit"], correct: 0 },
+                { question: "In DCF modeling, discounting future cash flows accounts for which core principle?", options: ["Time Value of Money", "Historical Cost Accounting", "Market Capitalization", "Tax Evasion"], correct: 0 },
+                { question: "Which statement line item is added back to Net Income when calculating Cash Flow from Operations?", options: ["Depreciation & Amortization", "Dividends Paid", "Capital Expenditures", "Debt Repayment"], correct: 0 },
+                { question: "Capital Expenditures (CapEx) represent investments in which asset category?", options: ["Property, Plant & Equipment", "Short-term Cash", "Accounts Receivable", "Inventory"], correct: 0 },
+                { question: "Present Value (PV) is calculated by discounting future cash flows back using what rate?", options: ["Discount Rate", "Inflation Index", "Tax Rate", "Prime Rate"], correct: 0 }
+            ],
+            // Tier 2 ($1,000 Level) - WACC & Discounting
+            [
+                { question: "Which discount rate is most commonly used to discount Free Cash Flow to Firm (FCFF)?", options: ["WACC (Weighted Average Cost of Capital)", "ROE (Return on Equity)", "EBITDA Margin", "Dividend Yield"], correct: 0 },
+                { question: "In the WACC formula, why is the cost of debt multiplied by (1 - Tax Rate)?", options: ["Interest expense is tax-deductible", "Debt carries no risk", "Equity holders pay taxes", "Tax rates never change"], correct: 0 },
+                { question: "If a company's Beta is 1.5, how does its systematic risk compare to the overall market?", options: ["50% more volatile than the market", "Equal to market risk", "50% less volatile than market", "Zero risk"], correct: 0 },
+                { question: "Unlevered Free Cash Flow isolates company operational performance independent of what?", options: ["Capital Structure & Financing", "Operating Expenses", "Revenue Growth", "Tax Liabilities"], correct: 0 },
+                { question: "Which non-cash item is subtracted from EBITDA to compute Operating Income (EBIT)?", options: ["Depreciation & Amortization", "Interest Expense", "Dividends", "Working Capital"], correct: 0 },
+                { question: "An increase in Net Working Capital represents what type of cash flow impact?", options: ["Cash Outflow / Reduction in Cash", "Cash Inflow / Increase in Cash", "Zero impact on cash", "Tax credit"], correct: 0 }
+            ],
+            // Tier 3 ($10,000 Level) - Terminal Value & Gordon Growth
+            [
+                { question: "What proportion of total Enterprise Value in a DCF model typically comes from Terminal Value?", options: ["60% to 80%", "10% to 20%", "100%", "Less than 5%"], correct: 0 },
+                { question: "The Gordon Growth Model calculates Terminal Value using which mathematical formula?", options: ["FCF * (1 + g) / (WACC - g)", "FCF * WACC / g", "EBITDA * Tax Rate", "Net Debt / WACC"], correct: 0 },
+                { question: "What happens to the Present Value of future cash flows if the discount rate (WACC) increases?", options: ["Present Value decreases", "Present Value increases", "Present Value stays unchanged", "Terminal Value doubles"], correct: 0 },
+                { question: "In Terminal Value calculation, what constraint must apply to the perpetual growth rate (g)?", options: ["g must be lower than long-term GDP growth", "g must be greater than WACC", "g must equal 10%", "g can be infinite"], correct: 0 },
+                { question: "What is the primary alternative method to Gordon Growth for estimating Terminal Value?", options: ["Exit Multiple Method", "LBO Model", "Black-Scholes Model", "Book Value Method"], correct: 0 },
+                { question: "Mid-year discounting assumes cash flows arrive continuously throughout the year rather than when?", options: ["Strictly at Year-End", "At Year-Beginning", "Every 5 years", "Never"], correct: 0 }
+            ],
+            // Tier 4 ($100,000 Level) - EV, Equity Value & Sensitivity
+            [
+                { question: "Enterprise Value equals Equity Value plus Net Debt. What is Net Debt defined as?", options: ["Total Debt minus Cash & Cash Equivalents", "Total Assets minus Liabilities", "Short-term Debt only", "Market Capitalization"], correct: 0 },
+                { question: "Sensitivity Analysis in DCF valuation models typically evaluates EV across changes in which 2 key inputs?", options: ["WACC & Perpetual Growth Rate (g)", "Logo Color & Office Size", "Headcount & Tax Returns", "Interest Rates & Dividend Dates"], correct: 0 },
+                { question: "What is the core difference between FCFF (Unlevered) and FCFE (Levered)?", options: ["FCFE subtracts interest & net debt repayments", "FCFF subtracts equity dividends", "FCFE includes CapEx while FCFF excludes it", "There is no difference"], correct: 0 },
+                { question: "If WACC is 10% and perpetual growth rate (g) is 3%, what is the capitalization rate denominator (WACC - g)?", options: ["7.0%", "13.0%", "3.0%", "30.0%"], correct: 0 },
+                { question: "How does higher expected long-term inflation impact nominal discount rates in DCF models?", options: ["Increases the nominal discount rate", "Decreases the discount rate", "Has zero effect", "Eliminates WACC"], correct: 0 },
+                { question: "Which metric represents the discount rate at which a project's Net Present Value (NPV) equals zero?", options: ["Internal Rate of Return (IRR)", "WACC", "Return on Equity (ROE)", "Payback Horizon"], correct: 0 }
+            ],
+            // Tier 5 ($1,000,000 Level) - Advanced Valuation Mastery
+            [
+                { question: "When valuing equity directly using Free Cash Flow to Equity (FCFE), which discount rate must be applied?", options: ["Cost of Equity (CAPM rate)", "WACC", "Cost of Debt", "Risk-Free Rate"], correct: 0 },
+                { question: "In a 2-stage DCF valuation model, what does Stage 1 represent?", options: ["Explicit forecast period (typically 5-10 yrs)", "Perpetual infinity stage", "Historical statement audit", "Liquidation value"], correct: 0 },
+                { question: "If a company has $500M Enterprise Value, $100M Total Debt, and $20M Cash, what is its Equity Value?", options: ["$420M", "$600M", "$580M", "$380M"], correct: 0 },
+                { question: "Why is EV/EBITDA multiple often preferred over P/E multiple in cross-border M&A comparisons?", options: ["It neutralizes capital structure & tax differences", "EBITDA ignores all expenses", "P/E is always negative", "EV ignores debt"], correct: 0 },
+                { question: "In DCF modeling, Net Working Capital change is calculated as:", options: ["Change in Operating Assets minus Change in Operating Liabilities", "Total Debt minus Equity", "Cash minus Revenue", "Net Income minus CapEx"], correct: 0 },
+                { question: "If a firm's Return on Invested Capital (ROIC) is lower than its WACC, corporate value is being:", options: ["Destroyed / Reduced", "Created / Maximized", "Doubled", "Unaffected"], correct: 0 }
+            ]
+        ];
+
+        const PRIZE_STAGES = ["$100", "$1,000", "$10,000", "$100,000", "$1,000,000"];
+
+        /* Audio Manager supporting MP3 with WAV fallback */
+        const AUDIO_KEYS = ['lobby', 'opening', 'letsplay', 'question', 'final', 'win', 'lose', '5050'];
+        const audioEngine = {};
+        let isMuted = false;
+
+        function initAudioEngine() {
+            AUDIO_KEYS.forEach(key => {
+                const audio = new Audio();
+                // Path check logic
+                audio.src = `../../assets/audio/${key}.mp3`;
+                audio.onerror = () => {
+                    audio.src = `../../assets/audio/${key}.wav`;
+                };
+                audioEngine[key] = audio;
+            });
+        }
+
+        function playAudio(key, loop = false) {
+            if (isMuted || !audioEngine[key]) return;
+            try {
+                // Stop other looping music if playing main cues
+                if (key === 'letsplay' || key === 'final' || key === 'win' || key === 'lose') {
+                    if (audioEngine['question']) audioEngine['question'].pause();
+                    if (audioEngine['lobby']) audioEngine['lobby'].pause();
+                }
+                const track = audioEngine[key];
+                track.currentTime = 0;
+                track.loop = loop;
+                track.play().catch(() => { /* Autoplay restriction fallback */ });
+            } catch (e) { }
+        }
+
+        function stopAudio(key) {
+            if (audioEngine[key]) {
+                audioEngine[key].pause();
+                audioEngine[key].currentTime = 0;
+            }
+        }
+
+        function stopAllAudio() {
+            AUDIO_KEYS.forEach(key => stopAudio(key));
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('soundIcon').innerText = isMuted ? '🔇' : '🔊';
+            document.getElementById('soundLabel').innerText = isMuted ? 'Sound OFF' : 'Sound ON';
+
+            if (isMuted) {
+                stopAllAudio();
+            } else {
+                const lobbyVisible = document.getElementById('lobbyScreen').style.display !== 'none';
+                const gameVisible = document.getElementById('gameScreen').style.display !== 'none';
+
+                if (lobbyVisible) {
+                    playAudio('lobby', true);
+                } else if (gameVisible) {
+                    if (isAnswering) {
+                        playAudio('final');
+                    } else if (qTimer !== null) {
+                        playAudio('question', true);
+                    } else if (letsPlayTimer !== null) {
+                        playAudio('letsplay');
+                    }
+                }
+            }
+        }
+
+        /* GAME STATE */
+        let gameQuestions = [];
+        let currentQIndex = 0;
+        let lifelinesLeft = 2;
+        let qTimer = null;
+        let timeLeft = 60;
+        let letsPlayTimer = null;
+        let finalSuspenseTimer = null;
+        let isAnswering = false;
+
+        function pickRandomGameSet() {
+            gameQuestions = [];
+            MILLIONAIRE_POOL.forEach((tierQuestions) => {
+                const randomQ = tierQuestions[Math.floor(Math.random() * tierQuestions.length)];
+                // Create randomized options order
+                const originalOptions = [...randomQ.options];
+                const correctAnswerText = originalOptions[randomQ.correct];
+
+                // Shuffle options
+                const shuffledOptions = [...originalOptions].sort(() => Math.random() - 0.5);
+                const newCorrectIdx = shuffledOptions.indexOf(correctAnswerText);
+
+                gameQuestions.push({
+                    question: randomQ.question,
+                    options: shuffledOptions,
+                    correct: newCorrectIdx,
+                    prize: PRIZE_STAGES[gameQuestions.length]
+                });
+            });
+        }
+
+        function startGame() {
+            stopAllAudio();
+            playAudio('opening');
+
+            document.getElementById('resultOverlay').classList.remove('active');
+            document.getElementById('lobbyScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'grid';
+
+            currentQIndex = 0;
+            lifelinesLeft = 2;
+            document.getElementById('lifelineCount').innerText = lifelinesLeft;
+            document.getElementById('btn5050').disabled = false;
+
+            pickRandomGameSet();
+            renderLadder();
+            loadQuestion(0);
+        }
+
+        function renderLadder() {
+            const ladderEl = document.getElementById('ladderList');
+            ladderEl.innerHTML = '';
+
+            PRIZE_STAGES.forEach((prize, idx) => {
+                const li = document.createElement('li');
+                let className = 'ladder-step';
+                if (idx < currentQIndex) className += ' completed';
+                if (idx === currentQIndex) className += ' active';
+                li.className = className;
+                li.innerHTML = `<span>Q${idx + 1}</span> <span>${prize}</span>`;
+                ladderEl.appendChild(li);
+            });
+        }
+
+        function loadQuestion(index) {
+            clearInterval(qTimer);
+            qTimer = null;
+            clearTimeout(letsPlayTimer);
+            letsPlayTimer = null;
+            clearTimeout(finalSuspenseTimer);
+            finalSuspenseTimer = null;
+            isAnswering = false;
+
+            currentQIndex = index;
+            renderLadder();
+
+            const qData = gameQuestions[currentQIndex];
+            document.getElementById('questionText').innerText = qData.question;
+            document.getElementById('statusIndicator').innerText = `Playing for ${qData.prize}`;
+
+            // Render Options
+            const gridEl = document.getElementById('optionsGrid');
+            gridEl.innerHTML = '';
+            const prefixes = ['A', 'B', 'C', 'D'];
+
+            qData.options.forEach((optText, optIdx) => {
+                const btn = document.createElement('button');
+                btn.className = 'm-option-btn';
+                btn.id = `optBtn_${optIdx}`;
+                btn.innerHTML = `<span class="m-option-prefix">${prefixes[optIdx]}:</span> ${optText}`;
+                btn.onclick = () => selectOption(optIdx);
+                gridEl.appendChild(btn);
+            });
+
+            // 1. Play letsplay audio for 3 seconds while timer is paused
+            timeLeft = 60;
+            const timerEl = document.getElementById('timerBox');
+            timerEl.innerText = '60';
+            timerEl.classList.remove('warning');
+
+            stopAudio('question');
+            playAudio('letsplay');
+
+            letsPlayTimer = setTimeout(() => {
+                letsPlayTimer = null;
+                // 2. Start 60s timer and loop question audio
+                playAudio('question', true);
+                startQuestionTimer();
+            }, 3000);
+        }
+
+        function startQuestionTimer() {
+            clearInterval(qTimer);
+            const timerEl = document.getElementById('timerBox');
+
+            qTimer = setInterval(() => {
+                timeLeft--;
+                timerEl.innerText = timeLeft;
+
+                if (timeLeft <= 10) {
+                    timerEl.classList.add('warning');
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(qTimer);
+                    triggerTimeoutLoss();
+                }
+            }, 1000);
+        }
+
+        function selectOption(optIdx) {
+            if (isAnswering) return;
+            isAnswering = true;
+            clearInterval(qTimer);
+            qTimer = null;
+            clearTimeout(letsPlayTimer);
+            letsPlayTimer = null;
+
+            // Disable all option buttons & lifeline
+            const buttons = document.querySelectorAll('.m-option-btn');
+            buttons.forEach(b => b.disabled = true);
+
+            // Highlight selected option in yellow (Suspense mode)
+            const selectedBtn = document.getElementById(`optBtn_${optIdx}`);
+            selectedBtn.classList.add('selected');
+
+            // Play final audio for 3 seconds
+            stopAudio('question');
+            playAudio('final');
+
+            finalSuspenseTimer = setTimeout(() => {
+                const qData = gameQuestions[currentQIndex];
+                selectedBtn.classList.remove('selected');
+
+                if (optIdx === qData.correct) {
+                    // Correct!
+                    selectedBtn.classList.add('correct');
+                    playAudio('win');
+
+                    setTimeout(() => {
+                        if (currentQIndex < gameQuestions.length - 1) {
+                            loadQuestion(currentQIndex + 1);
+                        } else {
+                            // Won $1,000,000!
+                            handleGameWin();
+                        }
+                    }, 6000);
+                } else {
+                    // Wrong!
+                    selectedBtn.classList.add('wrong');
+                    document.getElementById(`optBtn_${qData.correct}`).classList.add('correct');
+                    playAudio('lose');
+
+                    setTimeout(() => {
+                        showResultOverlay({
+                            icon: '❌',
+                            title: 'Game Over!',
+                            desc: `Wrong answer on Question ${currentQIndex + 1} (${qData.prize}). Try again to reach $1,000,000!`,
+                            actions: `
+                                <button class="btn-action" onclick="startGame()">🔄 Play Again</button>
+                                <button class="btn-action btn-action-secondary" onclick="returnToLobby()">🏠 Lobby</button>
+                            `
+                        });
+                    }, 4000);
+                }
+            }, 4000);
+        }
+
+        function triggerTimeoutLoss() {
+            isAnswering = true;
+            const qData = gameQuestions[currentQIndex];
+            const buttons = document.querySelectorAll('.m-option-btn');
+            buttons.forEach(b => b.disabled = true);
+            document.getElementById(`optBtn_${qData.correct}`).classList.add('correct');
+
+            stopAudio('question');
+            playAudio('lose');
+
+            showResultOverlay({
+                icon: '⏱️',
+                title: "Time's Up!",
+                desc: `You ran out of time on Question ${currentQIndex + 1} (${qData.prize}). Keep your speed sharp!`,
+                actions: `
+                    <button class="btn-action" onclick="startGame()">🔄 Play Again</button>
+                    <button class="btn-action btn-action-secondary" onclick="returnToLobby()">🏠 Lobby</button>
+                `
+            });
+        }
+
+        function use5050() {
+            if (lifelinesLeft <= 0 || isAnswering) return;
+            lifelinesLeft--;
+            document.getElementById('lifelineCount').innerText = lifelinesLeft;
+            if (lifelinesLeft <= 0) {
+                document.getElementById('btn5050').disabled = true;
+            }
+
+            playAudio('5050');
+
+            const qData = gameQuestions[currentQIndex];
+            let removedCount = 0;
+            const optionIndices = [0, 1, 2, 3].filter(idx => idx !== qData.correct);
+
+            // Randomly pick 2 wrong options to eliminate
+            const shuffledWrong = optionIndices.sort(() => Math.random() - 0.5);
+            shuffledWrong.slice(0, 2).forEach(wrongIdx => {
+                const btn = document.getElementById(`optBtn_${wrongIdx}`);
+                if (btn) {
+                    btn.style.opacity = '0.2';
+                    btn.style.pointerEvents = 'none';
+                    btn.style.textDecoration = 'line-through';
+                }
+            });
+        }
+
+        function handleGameWin() {
+            markSubmoduleComplete('3-4', '4-1');
+            showResultOverlay({
+                icon: '🏆',
+                title: 'CONGRATULATIONS!',
+                desc: 'You answered all 5 financial valuation questions correctly and won <strong>$1,000,000</strong>! Module 3 is now complete and Module 4 is unlocked.',
+                actions: `
+                    <a href="submodule-4-1.html" class="btn-action">Continue to Module 4 (4.1) →</a>
+                    <button class="btn-action btn-action-secondary" onclick="startGame()">🔄 Play Again</button>
+                    <a href="../modules.html" class="btn-action btn-action-secondary">Curriculum Room</a>
+                `
+            });
+        }
+
+        function showResultOverlay(config) {
+            document.getElementById('resultIcon').innerText = config.icon;
+            document.getElementById('resultTitle').innerText = config.title;
+            document.getElementById('resultDesc').innerHTML = config.desc;
+            document.getElementById('resultActions').innerHTML = config.actions;
+            document.getElementById('resultOverlay').classList.add('active');
+        }
+
+        function returnToLobby() {
+            document.getElementById('resultOverlay').classList.remove('active');
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('lobbyScreen').style.display = 'block';
+            stopAllAudio();
+            playAudio('lobby', true);
+        }
+
+        function markSubmoduleComplete(subId, nextSubId) {
+            if (window.FinanceAccounts) {
+                const session = window.FinanceAccounts.getActiveSession();
+                const userId = session ? session.userId : 'demo';
+                const userProgress = window.FinanceAccounts.getUserProgress(userId);
+
+                if (!userProgress.completedSubmodules.includes(subId)) {
+                    userProgress.completedSubmodules.push(subId);
+                }
+
+                if (nextSubId && !userProgress.unlockedSubmodules.includes(nextSubId)) {
+                    userProgress.unlockedSubmodules.push(nextSubId);
+                }
+
+                window.FinanceAccounts.saveUserProgress(userId, userProgress);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initAudioEngine();
+            // Start lobby music on first interaction if unmuted
+            document.body.addEventListener('click', function playLobbyOnce() {
+                if (document.getElementById('lobbyScreen').style.display !== 'none') {
+                    playAudio('lobby', true);
+                }
+                document.body.removeEventListener('click', playLobbyOnce);
+            }, { once: true });
+        });
+    </script>
+</body>
+
+</html>

@@ -163,7 +163,7 @@ class AppModules extends HTMLElement {
                   ${statusBadgeHtml}
                   <a href="${isUnlocked ? `submodules/submodule-${sub.id}.html` : '#'}" 
                      class="btn-start-submodule ${!isUnlocked ? 'disabled' : ''}">
-                    ${isDone ? 'Review' : (sub.isFinalTest ? 'Start Final Test' : 'Start Learning')}
+                    ${isDone ? 'Review' : (sub.isMinigame ? 'Play Minigame' : 'Start Learning')}
                   </a>
                 </div>
               </div>

@@ -228,7 +228,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 2.5rem;
 }
 
@@ -244,6 +244,9 @@
     border-radius: 12px;
     padding: 0.75rem;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .submodule-image-col img {
@@ -252,6 +255,7 @@
     border-radius: 8px;
     display: block;
     object-fit: contain;
+    margin: 0 auto;
 }
 
 .submodule-text-col p {

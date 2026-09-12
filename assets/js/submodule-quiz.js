@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (parentOption) parentOption.classList.add('correct');
       } else {
         if (parentOption) parentOption.classList.add('incorrect');
-        // Highlight correct choice for learning feedback
+        // Highlight the correct choice for learning feedback
         const correctRadio = qBox.querySelector('input[data-correct="true"]');
         if (correctRadio) {
           const correctOpt = correctRadio.closest('.quiz-option');
@@ -53,15 +53,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const totalQuestions = questions.length;
-    
+
     if (correctCount === totalQuestions) {
-      // Save progression
-      handleSubmoduleCompletion(currentSubId);
+      // Save progression (if logged in) and get next submodule ID
+      const nextSubId = handleSubmoduleCompletion(currentSubId);
 
       if (quizFeedback) {
         quizFeedback.style.color = '#2ecc71';
-        quizFeedback.innerHTML = `🎉 <strong>Perfect Score! (${correctCount}/${totalQuestions})</strong> Submodule completed and next submodule unlocked.`;
+        const destination = nextSubId ? `Submodule ${nextSubId.replace('-', '.')}` : 'the Curriculum Room';
+        quizFeedback.innerHTML = `🎉 <strong>Perfect Score! (${correctCount}/${totalQuestions})</strong> Redirecting you to ${destination}...`;
       }
+
+      // Redirect after 1.5 seconds
+      setTimeout(() => {
+        if (nextSubId) {
+          // Navigate to next submodule page (same folder)
+          window.location.href = `submodule-${nextSubId}.html`;
+        } else {
+          // Last submodule — go back to the Curriculum Room
+          window.location.href = '../modules.html';
+        }
+      }, 1500);
+
     } else {
       if (quizFeedback) {
         quizFeedback.style.color = '#e74c3c';
@@ -70,19 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Saves progress if user is logged in, and returns the next submodule ID (or null if last)
   function handleSubmoduleCompletion(subId) {
-    if (!window.FinanceAccounts) return;
-
-    const session = window.FinanceAccounts.getActiveSession();
-    const userId = session ? session.userId : 'demo';
-    const userProgress = window.FinanceAccounts.getUserProgress(userId);
-
-    // Add current subId to completed
-    if (!userProgress.completedSubmodules.includes(subId)) {
-      userProgress.completedSubmodules.push(subId);
-    }
-
-    // Determine next submodule ID
     const modulesData = window.FinanceModulesData || [];
     const allSubIds = [];
     modulesData.forEach(m => {
@@ -90,13 +92,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const currentIndex = allSubIds.indexOf(subId);
-    if (currentIndex !== -1 && currentIndex + 1 < allSubIds.length) {
-      const nextSubId = allSubIds[currentIndex + 1];
-      if (!userProgress.unlockedSubmodules.includes(nextSubId)) {
+    const nextSubId = (currentIndex !== -1 && currentIndex + 1 < allSubIds.length)
+      ? allSubIds[currentIndex + 1]
+      : null;
+
+    // Save progression only if FinanceAccounts is available (user is logged in)
+    if (window.FinanceAccounts) {
+      const session = window.FinanceAccounts.getActiveSession();
+      const userId = session ? session.userId : 'demo';
+      const userProgress = window.FinanceAccounts.getUserProgress(userId);
+
+      if (!userProgress.completedSubmodules.includes(subId)) {
+        userProgress.completedSubmodules.push(subId);
+      }
+
+      if (nextSubId && !userProgress.unlockedSubmodules.includes(nextSubId)) {
         userProgress.unlockedSubmodules.push(nextSubId);
       }
+
+      window.FinanceAccounts.saveUserProgress(userId, userProgress);
     }
 
-    window.FinanceAccounts.saveUserProgress(userId, userProgress);
+    return nextSubId;
   }
 });

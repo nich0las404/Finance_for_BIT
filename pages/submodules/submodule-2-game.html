@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2 Minigame: Corporate Finance Type Racer | Finance for BIT</title>
+
+    <!-- Theme & Styles -->
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../assets/css/navbar.css">
+    <link rel="stylesheet" href="../../assets/css/submodule.css">
+    <link rel="stylesheet" href="../../assets/css/login-modal.css">
+
+    <!-- Component Scripts -->
+    <script src="../../assets/js/accounts.js" defer></script>
+    <script src="../../assets/js/modules-data.js" defer></script>
+    <script src="../../assets/js/navbar.js" defer></script>
+    <script src="../../assets/js/login-modal.js" defer></script>
+
+    <style>
+        .game-wrapper {
+            background: rgba(28, 45, 66, 0.45);
+            border: 1px solid rgba(179, 146, 88, 0.35);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        /* Level Stepper Styling */
+        .level-stepper-container {
+            margin-bottom: 2rem;
+        }
+
+        .level-stepper-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .level-stepper-title h3 {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .level-badge {
+            background: rgba(179, 146, 88, 0.2);
+            color: #b39258;
+            border: 1px solid rgba(179, 146, 88, 0.4);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .level-stepper {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+        }
+
+        .level-step {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+
+        .level-step:hover:not(.locked) {
+            border-color: rgba(179, 146, 88, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .level-step.active {
+            background: rgba(179, 146, 88, 0.25);
+            border-color: #b39258;
+            box-shadow: 0 0 15px rgba(179, 146, 88, 0.3);
+        }
+
+        .level-step.completed {
+            background: rgba(46, 204, 113, 0.15);
+            border-color: rgba(46, 204, 113, 0.4);
+        }
+
+        .level-step.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .level-step .step-num {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+        }
+
+        .level-step.active .step-num {
+            color: #b39258;
+            font-weight: 800;
+        }
+
+        .level-step.completed .step-num {
+            color: #2ecc71;
+        }
+
+        .level-step .step-status {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 0.2rem;
+            color: #fff;
+        }
+
+        /* Stats Bar */
+        .typer-stats-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .stat-box .stat-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-box .stat-val {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #b39258;
+            line-height: 1;
+        }
+
+        /* Quote Display */
+        .quote-display {
+            background: #090e17;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 1.75rem;
+            font-size: 1.3rem;
+            line-height: 1.9;
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+            min-height: 120px;
+            user-select: none;
+            word-break: break-word;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .quote-char {
+            transition: background-color 0.1s ease, color 0.1s ease;
+            border-radius: 2px;
+        }
+
+        .quote-char.correct {
+            color: #2ecc71;
+            background: rgba(46, 204, 113, 0.15);
+        }
+
+        .quote-char.incorrect {
+            color: #ff5252;
+            background: rgba(239, 68, 68, 0.35);
+            text-decoration: underline;
+        }
+
+        .quote-char.current {
+            border-bottom: 3px solid #b39258;
+            background: rgba(179, 146, 88, 0.2);
+            animation: pulse 0.9s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                border-color: #b39258;
+            }
+
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        /* Typing Input */
+        .type-input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(179, 146, 88, 0.4);
+            border-radius: 12px;
+            padding: 1.1rem 1.25rem;
+            font-size: 1.15rem;
+            color: #ffffff;
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            outline: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .type-input:focus {
+            border-color: #b39258;
+            box-shadow: 0 0 20px rgba(179, 146, 88, 0.25);
+        }
+
+        .type-input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Action Buttons */
+        .game-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-game {
+            background: var(--theme-gold, #b39258);
+            color: #0d131d;
+            font-weight: 800;
+            border: none;
+            padding: 0.85rem 1.75rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-game:hover {
+            background: #c5a367;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(179, 146, 88, 0.3);
+        }
+
+        .btn-secondary {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            background: #334155;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Modal Overlay for Level Complete */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(9, 14, 23, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: rgba(28, 45, 66, 0.95);
+            border: 1px solid rgba(179, 146, 88, 0.5);
+            border-radius: 18px;
+            padding: 2.5rem;
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .modal-stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .modal-stat-box .label {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+
+        .modal-stat-box .val {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #b39258;
+            margin-top: 0.2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .level-stepper {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+            }
+
+            .game-wrapper {
+                padding: 1.5rem;
+            }
+
+            .quote-display {
+                font-size: 1.1rem;
+                padding: 1.2rem;
+            }
+
+            .scoreboard-table {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Scoreboard & Module Completion Banner */
+        .scoreboard-container {
+            margin-top: 2.25rem;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(179, 146, 88, 0.35);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .scoreboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.75rem;
+        }
+
+        .scoreboard-header h4 {
+            font-size: 1.15rem;
+            color: #b39258;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+        }
+
+        .scoreboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .scoreboard-table th {
+            color: #94a3b8;
+            font-weight: 600;
+            padding: 0.75rem 0.6rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .scoreboard-table td {
+            padding: 0.8rem 0.6rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+        }
+
+        .scoreboard-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge-passed {
+            color: #2ecc71;
+            font-weight: 700;
+        }
+
+        .badge-locked {
+            color: #64748b;
+        }
+
+        .badge-playing {
+            color: #b39258;
+            font-weight: 700;
+        }
+
+        /* Persistent All Levels Complete Banner */
+        .completion-banner {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, rgba(179, 146, 88, 0.25) 0%, rgba(46, 204, 113, 0.2) 100%);
+            border: 2px solid #b39258;
+            border-radius: 16px;
+            padding: 1.75rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(179, 146, 88, 0.25);
+            display: none;
+        }
+
+        .completion-banner.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .completion-banner h3 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin: 0 0 0.5rem 0;
+            font-weight: 800;
+        }
+
+        .completion-banner p {
+            color: #cbd5e1;
+            margin: 0 0 1.25rem 0;
+            font-size: 1.05rem;
+        }
+    </style>
+</head>
+
+<body data-submodule-id="2-game">
+
+    <app-navbar></app-navbar>
+
+    <main class="submodule-page">
+        <div class="submodule-container">
+
+            <a href="submodule-2-5.html" class="back-link">
+                ← Back to Submodule 2.5
+            </a>
+
+            <div class="submodule-hero">
+                <span class="submodule-tag">Module 2 Interactive Minigame</span>
+                <h1 class="submodule-main-title">🏎️ Corporate Finance Type Racer</h1>
+                <p class="submodule-lead">
+                    Master corporate finance concepts by typing through 6 speed levels! Type accurately to unlock Module
+                    3.
+                </p>
+            </div>
+
+            <div class="game-wrapper">
+
+                <!-- Level Stepper -->
+                <div class="level-stepper-container">
+                    <div class="level-stepper-title">
+                        <h3 id="currentLevelTitle">Level 1: Time Value of Money</h3>
+                        <span class="level-badge" id="levelProgressBadge">Level 1 of 6</span>
+                    </div>
+                    <div class="level-stepper" id="levelStepper">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Stats Header -->
+                <div class="typer-stats-bar">
+                    <div class="stat-box">
+                        <div class="stat-label">Level</div>
+                        <div class="stat-val" id="levelVal">1 / 6</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Time Left</div>
+                        <div class="stat-val" id="timeVal">60s</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">WPM (Speed)</div>
+                        <div class="stat-val" id="wpmVal">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Accuracy</div>
+                        <div class="stat-val" id="accuracyVal">100%</div>
+                    </div>
+                </div>
+
+                <!-- Text Passage Display -->
+                <div class="quote-display" id="quoteDisplay">
+                    <!-- Text chars rendered dynamically -->
+                </div>
+
+                <!-- Typing Input -->
+                <input type="text" class="type-input" id="typeInput" placeholder="Start typing here to run timer..."
+                    autocomplete="off" spellcheck="false">
+
+                <!-- Game Controls & Status -->
+                <div class="game-controls">
+                    <div style="display: flex; gap: 0.75rem;">
+                        <button class="btn-game btn-secondary" onclick="restartCurrentLevel()">🔄 Reset Level</button>
+                        <button class="btn-game btn-secondary" onclick="restartFromLevel1()">⏮️ Start Over (Lvl
+                            1)</button>
+                    </div>
+                    <div id="gameFinishMsg" style="font-weight: 700; font-size: 1.1rem; color: #2ecc71;"></div>
+                </div>
+
+                <!-- Persistent All Levels Complete Banner -->
+                <div class="completion-banner" id="allLevelsCompleteBanner">
+                    <h3>🏆 Corporate Finance TypeRacer Master!</h3>
+                    <p>Congratulations! You have completed all 6 levels and mastered Module 2!</p>
+                    <a href="submodule-3-1.html" class="btn-game" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                        🚀 Continue to Module 3 (Submodule 3.1) →
+                    </a>
+                </div>
+
+                <!-- Level Performance Scoreboard -->
+                <div class="scoreboard-container">
+                    <div class="scoreboard-header">
+                        <h4>📊 Level Performance Scoreboard</h4>
+                        <span style="font-size: 0.85rem; color: #94a3b8;">Best scores saved automatically</span>
+                    </div>
+                    <table class="scoreboard-table">
+                        <thead>
+                            <tr>
+                                <th>Level Topic</th>
+                                <th>Status</th>
+                                <th>Best Speed</th>
+                                <th>Best Accuracy</th>
+                                <th>Best Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scoreboardBody">
+                            <!-- Rendered dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Level Result Modal -->
+                <div class="modal-overlay" id="resultModal">
+                    <div class="modal-card">
+                        <div class="modal-icon" id="modalIcon">🎉</div>
+                        <h2 class="modal-title" id="modalTitle">Level Passed!</h2>
+                        <p class="modal-subtitle" id="modalSubtitle">Great accuracy! Ready for the next corporate
+                            finance challenge?</p>
+
+                        <div class="modal-stats">
+                            <div class="modal-stat-box">
+                                <div class="label">Speed</div>
+                                <div class="val" id="modalWpm">0 WPM</div>
+                            </div>
+                            <div class="modal-stat-box">
+                                <div class="label">Accuracy</div>
+                                <div class="val" id="modalAccuracy">100%</div>
+                            </div>
+                            <div class="modal-stat-box">
+                                <div class="label">Time Used</div>
+                                <div class="val" id="modalTime">0s</div>
+                            </div>
+                        </div>
+
+                        <div class="modal-actions" id="modalActions">
+                            <!-- Buttons rendered dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <app-login-modal></app-login-modal>
+
+    <script>
+        /* ===================================================
+           MODULE 2 TYPE RACER - 6 CORPORATE FINANCE LEVELS
+           =================================================== */
+        const RACER_LEVELS = [
+            {
+                level: 1,
+                title: "Level 1: Time Value of Money",
+                timeLimit: 60,
+                text: "The time value of money dictates that a dollar available today is worth more than a dollar received in the future due to its potential earning capacity through compounding interest."
+            },
+            {
+                level: 2,
+                title: "Level 2: Risk & Return (CAPM)",
+                timeLimit: 60,
+                text: "Investors demand higher expected returns for accepting higher systematic risk, which is quantified by beta in the Capital Asset Pricing Model."
+            },
+            {
+                level: 3,
+                title: "Level 3: Capital Budgeting (NPV)",
+                timeLimit: 65,
+                text: "Net Present Value evaluates investment projects by discounting expected future cash flows back to present value using the hurdle rate."
+            },
+            {
+                level: 4,
+                title: "Level 4: Capital Structure & WACC",
+                timeLimit: 70,
+                text: "Weighted Average Cost of Capital represents a firm's average cost of capital from all sources, balancing the tax shields of debt against financial distress risk."
+            },
+            {
+                level: 5,
+                title: "Level 5: Working Capital Cycle",
+                timeLimit: 65,
+                text: "Working capital management optimizes short-term liquidity by streamlining the cash conversion cycle across inventory, receivables, and payables."
+            },
+            {
+                level: 6,
+                title: "Level 6: Corporate Finance Mastery",
+                timeLimit: 75,
+                text: "Effective corporate finance synthesizes capital allocation, optimal financing decisions, and disciplined risk management to maximize long-term shareholder value."
+            }
+        ];
+
+        let currentLevelIdx = 0;
+        let unlockedMaxLevelIdx = 0;
+        let levelStats = RACER_LEVELS.map(() => ({ completed: false, bestWpm: 0, bestAccuracy: 0, bestTime: 0 }));
+
+        let targetText = "";
+        let timer = null;
+        let timeLeft = 60;
+        let startTime = null;
+        let isStarted = false;
+        let totalTyped = 0;
+        let errors = 0;
+
+        function loadSavedScores() {
+            try {
+                const saved = localStorage.getItem('finance_typeracer_m2_scores');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed) && parsed.length === RACER_LEVELS.length) {
+                        levelStats = parsed;
+                        let maxUnlocked = 0;
+                        levelStats.forEach((st, idx) => {
+                            if (st.completed && idx + 1 < RACER_LEVELS.length) {
+                                maxUnlocked = Math.max(maxUnlocked, idx + 1);
+                            }
+                        });
+                        unlockedMaxLevelIdx = maxUnlocked;
+                    }
+                }
+            } catch (e) {
+                console.error("Error loading saved scores", e);
+            }
+        }
+
+        function saveScores() {
+            try {
+                localStorage.setItem('finance_typeracer_m2_scores', JSON.stringify(levelStats));
+            } catch (e) {
+                console.error("Error saving scores", e);
+            }
+        }
+
+        function renderScoreboard() {
+            const tableBody = document.getElementById('scoreboardBody');
+            if (!tableBody) return;
+            tableBody.innerHTML = '';
+
+            let allDone = true;
+
+            RACER_LEVELS.forEach((lvl, idx) => {
+                const st = levelStats[idx];
+                const tr = document.createElement('tr');
+
+                const isCompleted = st.completed;
+                const isActive = idx === currentLevelIdx;
+                const isLocked = idx > unlockedMaxLevelIdx;
+
+                if (!isCompleted) allDone = false;
+
+                let statusHtml = '<span class="badge-locked">🔒 Locked</span>';
+                if (isCompleted) {
+                    statusHtml = '<span class="badge-passed">✓ Passed</span>';
+                } else if (isActive) {
+                    statusHtml = '<span class="badge-playing">▶ In Progress</span>';
+                } else if (!isLocked) {
+                    statusHtml = '<span style="color:#94a3b8;">Ready</span>';
+                }
+
+                tr.innerHTML = `
+                    <td><strong>Level ${idx + 1}</strong>: ${lvl.title.split(':')[1] || lvl.title}</td>
+                    <td>${statusHtml}</td>
+                    <td>${st.bestWpm > 0 ? st.bestWpm + ' WPM' : '-'}</td>
+                    <td>${st.bestAccuracy > 0 ? st.bestAccuracy + '%' : '-'}</td>
+                    <td>${st.bestTime > 0 ? st.bestTime + 's' : '-'}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+
+            const completionBanner = document.getElementById('allLevelsCompleteBanner');
+            if (allDone && completionBanner) {
+                completionBanner.classList.add('active');
+                markSubmoduleComplete('2-5', '3-1');
+            }
+        }
+
+        function renderStepper() {
+            const stepperEl = document.getElementById('levelStepper');
+            stepperEl.innerHTML = '';
+
+            RACER_LEVELS.forEach((lvl, idx) => {
+                const stepDiv = document.createElement('div');
+                const isCompleted = levelStats[idx].completed;
+                const isActive = idx === currentLevelIdx;
+                const isLocked = idx > unlockedMaxLevelIdx;
+
+                let classNames = ['level-step'];
+                if (isActive) classNames.push('active');
+                if (isCompleted) classNames.push('completed');
+                if (isLocked) classNames.push('locked');
+
+                stepDiv.className = classNames.join(' ');
+
+                stepDiv.innerHTML = `
+                    <div class="step-num">Level ${idx + 1}</div>
+                    <div class="step-status">${isCompleted ? '✓ Passed' : (isActive ? '▶ Playing' : (isLocked ? '🔒 Locked' : 'Ready'))}</div>
+                `;
+
+                if (!isLocked) {
+                    stepDiv.addEventListener('click', () => {
+                        if (currentLevelIdx !== idx) {
+                            loadLevel(idx);
+                        }
+                    });
+                }
+
+                stepperEl.appendChild(stepDiv);
+            });
+
+            document.getElementById('currentLevelTitle').innerText = RACER_LEVELS[currentLevelIdx].title;
+            document.getElementById('levelProgressBadge').innerText = `Level ${currentLevelIdx + 1} of ${RACER_LEVELS.length}`;
+            document.getElementById('levelVal').innerText = `${currentLevelIdx + 1} / ${RACER_LEVELS.length}`;
+        }
+
+        function loadLevel(levelIdx) {
+            clearInterval(timer);
+            isStarted = false;
+            currentLevelIdx = levelIdx;
+
+            const lvlData = RACER_LEVELS[currentLevelIdx];
+            targetText = lvlData.text;
+            timeLeft = lvlData.timeLimit;
+            startTime = null;
+            errors = 0;
+
+            document.getElementById('timeVal').innerText = `${timeLeft}s`;
+            document.getElementById('wpmVal').innerText = '0';
+            document.getElementById('accuracyVal').innerText = '100%';
+            document.getElementById('gameFinishMsg').innerText = '';
+            closeModal();
+
+            const inputEl = document.getElementById('typeInput');
+            inputEl.value = '';
+            inputEl.disabled = false;
+
+            renderQuoteDisplay();
+            renderStepper();
+            renderScoreboard();
+
+            setTimeout(() => inputEl.focus(), 50);
+        }
+
+        function renderQuoteDisplay() {
+            const quoteEl = document.getElementById('quoteDisplay');
+            quoteEl.innerHTML = '';
+
+            targetText.split('').forEach((char, index) => {
+                const charSpan = document.createElement('span');
+                charSpan.className = 'quote-char' + (index === 0 ? ' current' : '');
+                charSpan.innerText = char;
+                quoteEl.appendChild(charSpan);
+            });
+        }
+
+        function startTimer() {
+            isStarted = true;
+            startTime = Date.now();
+
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timeVal').innerText = `${timeLeft}s`;
+
+                if (timeLeft <= 0) {
+                    endLevel(false);
+                }
+            }, 1000);
+        }
+
+        function restartCurrentLevel() {
+            loadLevel(currentLevelIdx);
+        }
+
+        function restartFromLevel1() {
+            loadLevel(0);
+        }
+
+        function endLevel(passed) {
+            clearInterval(timer);
+            const inputEl = document.getElementById('typeInput');
+            inputEl.disabled = true;
+
+            const inputVal = inputEl.value;
+            const elapsedTimeSec = startTime ? Math.max(1, Math.round((Date.now() - startTime) / 1000)) : 1;
+            const wordsTyped = inputVal.length / 5;
+            const finalWpm = Math.round((wordsTyped / elapsedTimeSec) * 60);
+
+            const charSpans = document.querySelectorAll('.quote-char');
+            let totalErrors = 0;
+            charSpans.forEach((span, idx) => {
+                if (inputVal[idx] !== span.innerText) totalErrors++;
+            });
+
+            const finalAccuracy = inputVal.length > 0
+                ? Math.max(0, Math.round(((inputVal.length - totalErrors) / inputVal.length) * 100))
+                : 0;
+
+            if (passed && finalAccuracy >= 80) {
+                levelStats[currentLevelIdx].completed = true;
+                levelStats[currentLevelIdx].bestWpm = Math.max(levelStats[currentLevelIdx].bestWpm, finalWpm);
+                levelStats[currentLevelIdx].bestAccuracy = Math.max(levelStats[currentLevelIdx].bestAccuracy, finalAccuracy);
+                levelStats[currentLevelIdx].bestTime = levelStats[currentLevelIdx].bestTime > 0
+                    ? Math.min(levelStats[currentLevelIdx].bestTime, elapsedTimeSec)
+                    : elapsedTimeSec;
+
+                saveScores();
+
+                if (currentLevelIdx + 1 > unlockedMaxLevelIdx) {
+                    unlockedMaxLevelIdx = Math.min(RACER_LEVELS.length - 1, currentLevelIdx + 1);
+                }
+
+                renderStepper();
+                renderScoreboard();
+
+                if (currentLevelIdx < RACER_LEVELS.length - 1) {
+                    showModal({
+                        icon: '🎉',
+                        title: `Level ${currentLevelIdx + 1} Passed!`,
+                        subtitle: `Outstanding! You mastered <b>${RACER_LEVELS[currentLevelIdx].title.split(':')[1] || RACER_LEVELS[currentLevelIdx].title}</b>. Ready for Level ${currentLevelIdx + 2}?`,
+                        wpm: `${finalWpm} WPM`,
+                        accuracy: `${finalAccuracy}%`,
+                        time: `${elapsedTimeSec}s`,
+                        actions: `
+                            <button class="btn-game" onclick="nextLevel()">🚀 Next Level (Level ${currentLevelIdx + 2}) →</button>
+                            <button class="btn-game btn-secondary" onclick="restartCurrentLevel()">🔄 Retry Level</button>
+                        `
+                    });
+                } else {
+                    // All 6 levels complete!
+                    markSubmoduleComplete('2-5', '3-1');
+                    showModal({
+                        icon: '🏆',
+                        title: `Corporate Finance Champion!`,
+                        subtitle: `Congratulations! You successfully completed all 6 TypeRacer levels and mastered Module 2! Module 3 is now unlocked.`,
+                        wpm: `${finalWpm} WPM`,
+                        accuracy: `${finalAccuracy}%`,
+                        time: `${elapsedTimeSec}s`,
+                        actions: `
+                            <a href="submodule-3-1.html" class="btn-game">Continue to Module 3 (3.1) →</a>
+                            <button class="btn-game btn-secondary" onclick="restartFromLevel1()">🔄 Play Again</button>
+                            <a href="../modules.html" class="btn-game btn-secondary">Curriculum Room</a>
+                        `
+                    });
+                }
+            } else {
+                // Accuracy < 80% OR Time ran out!
+                showModal({
+                    icon: '🎯',
+                    title: passed ? 'Low Accuracy!' : "Time's Up!",
+                    subtitle: passed
+                        ? `You finished typing the paragraph, but accuracy was <b>${finalAccuracy}%</b> (Required: 80%+). Try again to pass!`
+                        : `You ran out of time on Level ${currentLevelIdx + 1}. Try again to boost your typing speed!`,
+                    wpm: `${finalWpm} WPM`,
+                    accuracy: `${finalAccuracy}%`,
+                    time: `${elapsedTimeSec}s`,
+                    actions: `
+                        <button class="btn-game" onclick="restartCurrentLevel()">🔄 Try Level ${currentLevelIdx + 1} Again</button>
+                    `
+                });
+            }
+        }
+
+        function nextLevel() {
+            if (currentLevelIdx < RACER_LEVELS.length - 1) {
+                loadLevel(currentLevelIdx + 1);
+            }
+        }
+
+        function showModal(config) {
+            document.getElementById('modalIcon').innerText = config.icon;
+            document.getElementById('modalTitle').innerText = config.title;
+            document.getElementById('modalSubtitle').innerHTML = config.subtitle;
+            document.getElementById('modalWpm').innerText = config.wpm;
+            document.getElementById('modalAccuracy').innerText = config.accuracy;
+            document.getElementById('modalTime').innerText = config.time;
+            document.getElementById('modalActions').innerHTML = config.actions;
+
+            const modalOverlay = document.getElementById('resultModal');
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('resultModal').classList.remove('active');
+        }
+
+        function markSubmoduleComplete(subId, nextSubId) {
+            if (window.FinanceAccounts) {
+                const session = window.FinanceAccounts.getActiveSession();
+                const userId = session ? session.userId : 'demo';
+                const userProgress = window.FinanceAccounts.getUserProgress(userId);
+
+                if (!userProgress.completedSubmodules.includes(subId)) {
+                    userProgress.completedSubmodules.push(subId);
+                }
+
+                if (nextSubId && !userProgress.unlockedSubmodules.includes(nextSubId)) {
+                    userProgress.unlockedSubmodules.push(nextSubId);
+                }
+
+                window.FinanceAccounts.saveUserProgress(userId, userProgress);
+            }
+        }
+
+        document.getElementById('typeInput').addEventListener('input', (e) => {
+            if (!isStarted && e.target.value.length > 0) {
+                startTimer();
+            }
+
+            const inputVal = e.target.value;
+            const charSpans = document.querySelectorAll('.quote-char');
+            let currentErrors = 0;
+
+            charSpans.forEach((span, idx) => {
+                const char = inputVal[idx];
+                span.classList.remove('current', 'correct', 'incorrect');
+
+                if (char == null) {
+                    if (idx === inputVal.length) span.classList.add('current');
+                } else if (char === span.innerText) {
+                    span.classList.add('correct');
+                } else {
+                    span.classList.add('incorrect');
+                    currentErrors++;
+                }
+            });
+
+            // Calculate live WPM and Accuracy
+            const elapsedTimeSec = startTime ? Math.max(1, (Date.now() - startTime) / 1000) : 1;
+            const wordsTyped = inputVal.length / 5;
+            const liveWpm = Math.round((wordsTyped / elapsedTimeSec) * 60);
+            const liveAccuracy = inputVal.length > 0 ? Math.round(((inputVal.length - currentErrors) / inputVal.length) * 100) : 100;
+
+            document.getElementById('wpmVal').innerText = Math.max(0, liveWpm);
+            document.getElementById('accuracyVal').innerText = Math.max(0, liveAccuracy) + '%';
+
+            if (inputVal.length >= targetText.length) {
+                endLevel(true);
+            }
+        });
+
+        // Global Keydown support for active result modal
+        document.addEventListener('keydown', (e) => {
+            const modalOverlay = document.getElementById('resultModal');
+            if (modalOverlay.classList.contains('active') && e.key === 'Enter') {
+                const primaryBtn = modalOverlay.querySelector('.modal-actions .btn-game');
+                if (primaryBtn) primaryBtn.click();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedScores();
+            loadLevel(0);
+        });
+    </script>
+</body>
+
+</html>

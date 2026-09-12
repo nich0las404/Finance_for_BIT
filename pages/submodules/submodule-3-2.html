@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- EDIT HERE: Page Title -->
-    <title>Submodule 3-2:  Multi-Year Revenue & Margin Forecasting | Finance for BIT</title>
+    <!-- Page Title -->
+    <title>Submodule 3-2: Discount Rate & WACC | Finance for BIT</title>
 
     <!-- Theme & Styles -->
     <link rel="stylesheet" href="../../styles.css">
@@ -35,22 +35,18 @@
 
             <!-- Submodule Main Header Card -->
             <div class="submodule-hero">
-                <!-- EDIT HERE: Submodule Tag & Number -->
                 <span class="submodule-tag">Submodule 3.2</span>
 
-                <!-- EDIT HERE: Main Submodule Title -->
-                <h1 class="submodule-main-title">Multi-Year Revenue & Margin Forecasting</h1>
+                <h1 class="submodule-main-title">Discount Rate & Cost of Capital (WACC)</h1>
 
-                <!-- EDIT HERE: Submodule Lead Summary -->
                 <p class="submodule-lead">
-                    Learn how to project a company's future financial performance by analyzing historical trends, market drivers, and operating margins to build the top-line of a DCF model.
+                    Master how to determine the discount rate in Discounted Cash Flow (DCF) valuation by calculating the Weighted Average Cost of Capital (WACC), Cost of Equity (CAPM), and the after-tax Cost of Debt.
                 </p>
             </div>
 
             <!-- SECTION 1 -->
             <div class="submodule-header-banner">
-                <!-- EDIT HERE: Section 1 Header Title -->
-                <h2>Multi-Year Revenue & Margin Forecasting</h2>
+                <h2>Discount Rate & Weighted Average Cost of Capital (WACC)</h2>
             </div>
 
             <!-- SECTION 2 -->
@@ -58,21 +54,17 @@
 
                 <!-- LEFT COLUMN: Photo / Table Image -->
                 <div class="submodule-image-col">
-                    <!-- EDIT HERE: Replace src with your image file path (e.g., ../../assets/images/your-image.png) -->
-                    <img src="../../assets/images/submodule3-2-1.png" alt="Revenue and Margin Forecasting Diagram"
-                        id="submoduleMainImage">
+                    <img src="../../assets/images/submodule3-2-1.png" alt="Discount Rate and WACC Diagram" id="submoduleMainImage">
                 </div>
 
                 <!-- RIGHT COLUMN: Paragraph Content -->
                 <div class="submodule-text-col">
-                    <!-- EDIT HERE: Paragraph 1 -->
                     <p class="justified-text">
-                        A Discounted Cash Flow (DCF) model is entirely dependent on the accuracy of its future projections. Before we can calculate Free Cash Flow, we must first build a multi-year forecast of the company's Income Statement.
+                        In Discounted Cash Flow (DCF) valuation, future cash flows cannot be valued at face value because money received in the future is worth less than money today due to risk, inflation, and opportunity cost.
                     </p>
 
-                    <!-- EDIT HERE: Paragraph 2 -->
                     <p class="justified-text">
-                        Revenue is the engine of the business, and operating margins dictate how efficiently that engine converts sales into profit. Forecasting these two metrics accurately is the most critical step in corporate valuation.
+                        The <strong>Discount Rate</strong> translates future Free Cash Flows to Firm (FCFF) into their Present Value (PV). When discounting FCFF—which belongs to both debt and equity holders—the appropriate discount rate is the <strong>Weighted Average Cost of Capital (WACC)</strong>.
                     </p>
                 </div>
 
@@ -81,71 +73,90 @@
             <!-- SECTION 3-->
             <div class="learning-card">
 
-                <!-- EDIT HERE: Gold Sub-heading -->
-                <h3 class="section-title-gold">Forecasting Revenue (The Top-Line)</h3>
-
-                <!-- EDIT HERE: Section Text -->
-                <p class="justified-text">
-                    Revenue forecasting is the starting point of any financial model. Analysts typically use a combination of historical growth rates, management guidance, and macroeconomic market drivers to predict future sales.
-                </p>
-
-                <!-- EDIT HERE: Formula Callout Box -->
-                <div class="formula-highlight">
-                    💡 <strong>Revenue = Price × Volume</strong><br>
-                    Alternatively, for a quick baseline: <strong>Future Revenue = Current Revenue × (1 + Growth Rate)</strong>
-                </div>
+                <h3 class="section-title-gold">What is the Weighted Average Cost of Capital (WACC)?</h3>
 
                 <p class="justified-text">
-                    Analysts often break revenue down into its core drivers. For a software company, this might be "Number of Subscribers × Average Revenue Per User (ARPU)." For a retailer, it might be "Number of Stores × Average Sales per Store."
-                </p>
-
-                <h3 class="section-title-gold" style="margin-top: 2rem;">Projecting Operating Margins</h3>
-
-                <p class="justified-text">
-                    Once revenue is forecasted, we must estimate how much of that revenue will translate into operating profit. This is done by projecting the <strong>EBITDA Margin</strong> or <strong>Operating Margin</strong>.
+                    WACC represents the blended target return required by all capital providers (equity investors and debt lenders) to finance a firm's assets and business operations.
                 </p>
 
                 <div class="formula-highlight">
-                    💡 <strong>Operating Margin = Operating Income (EBIT) / Total Revenue</strong>
+                    💡 <strong>WACC = (E / V × R_e) + [D / V × R_d × (1 - T_c)]</strong><br><br>
+                    Where:<br>
+                    • <strong>E</strong> = Market value of Equity<br>
+                    • <strong>D</strong> = Market value of Debt<br>
+                    • <strong>V</strong> = Total Market Value of Capital (E + D)<br>
+                    • <strong>R_e</strong> = Cost of Equity<br>
+                    • <strong>R_d</strong> = Cost of Debt (pre-tax yield)<br>
+                    • <strong>T_c</strong> = Corporate tax rate (interest tax shield effect)
                 </div>
+            </div>
+
+            <div class="learning-card">
+                <h3 class="section-title-gold">Breaking Down the WACC Components</h3>
 
                 <p class="justified-text">
-                    Margins rarely stay static. As a company grows, it may benefit from <strong>economies of scale</strong> (spreading fixed costs over a larger revenue base), which causes margins to expand. Conversely, intense competition or rising input costs can cause margin compression.
-                </p>
-
-                <h3 class="section-title-gold" style="margin-top: 2rem;">Real-World Corporate Finance Example</h3>
-
-                <p class="justified-text">
-                    Suppose Company Z generated <strong>$100 million</strong> in revenue last year with an <strong>EBITDA margin of 20%</strong> (meaning $20 million in EBITDA). 
-                </p>
-
-                <p class="justified-text">
-                    Analysts forecast that Company Z will grow its revenue by <strong>10%</strong> next year due to a new product launch. Furthermore, because the company is spreading its fixed R&D costs over a larger sales base, they expect the EBITDA margin to expand to <strong>22%</strong>.
-                </p>
-
-                <p class="justified-text">
-                    <strong>Step 1:</strong> Forecast Revenue. $100M × (1 + 0.10) = <strong>$110 million</strong>.<br>
-                    <strong>Step 2:</strong> Forecast EBITDA. $110M × 22% = <strong>$24.2 million</strong>.
+                    <strong>1. Cost of Equity (R_e) via CAPM:</strong> Equity investors require a higher return than debt holders because equity bears higher risk. The Cost of Equity is standardly calculated using the <strong>Capital Asset Pricing Model (CAPM)</strong>:
                 </p>
 
                 <div class="formula-highlight">
-                    💡 <strong>Result:</strong> While revenue grew by 10%, the EBITDA grew from $20M to $24.2M—a <strong>21% increase</strong>. This demonstrates the powerful impact of margin expansion on bottom-line profitability.
+                    📊 <strong>R_e = R_f + β × (E(R_m) - R_f)</strong><br><br>
+                    • <strong>R_f (Risk-Free Rate):</strong> Yield on long-term government bonds (e.g., 10-Year Treasury).<br>
+                    • <strong>β (Beta):</strong> Sensitivity of the company's stock relative to the broader stock market.<br>
+                    • <strong>ERP (Equity Risk Premium, E(R_m) - R_f):</strong> The additional return required over risk-free assets for investing in equity markets.
                 </div>
 
-                <h3 class="section-title-gold" style="margin-top: 2rem;">How Analysts Use Forecasting Every Day</h3>
+                <p class="justified-text" style="margin-top: 1.5rem;">
+                    <strong>2. Cost of Debt (R_d) & Interest Tax Shield:</strong> The cost of debt is the effective rate a company pays on its borrowed debt. Because interest payments are tax-deductible expense items, debt generates an <strong>interest tax shield</strong>:
+                </p>
+
+                <div class="formula-highlight">
+                    🛡️ <strong>After-Tax Cost of Debt = R_d × (1 - T_c)</strong>
+                </div>
+            </div>
+
+            <div class="learning-card">
+                <h3 class="section-title-gold">Real-World Corporate Finance Example</h3>
 
                 <p class="justified-text">
-                    <strong>Sensitivity Analysis:</strong> Because the future is uncertain, analysts build "data tables" to see how the company's valuation changes if revenue growth is 8% instead of 10%, or if margins compress to 18% instead of expanding.
+                    Suppose Company Z has a market value of <strong>$70 million in Equity</strong> and <strong>$30 million in Debt</strong> (Total Capital V = $100M). The corporate tax rate is <strong>25%</strong>.
                 </p>
 
                 <p class="justified-text">
-                    <strong>Identifying Inflection Points:</strong> Financial models help investors pinpoint exactly when a company's heavy investments (like building a new factory) will start generating positive returns and expanding margins.
+                    Market Parameters: Risk-free rate (R_f) = <strong>4.0%</strong>, Beta (β) = <strong>1.20</strong>, Equity Risk Premium (ERP) = <strong>5.0%</strong>, Pre-tax Cost of Debt (R_d) = <strong>6.0%</strong>.
                 </p>
 
                 <p class="justified-text">
-                    <strong>Consensus vs. Internal Models:</strong> Investment bankers compare their proprietary margin forecasts against "Wall Street Consensus" estimates to determine if a stock is currently overvalued or undervalued by the market.
+                    <strong>Step 1: Calculate Cost of Equity (R_e):</strong><br>
+                    R_e = 4.0% + 1.20 × 5.0% = 4.0% + 6.0% = <strong>10.0%</strong>.
                 </p>
 
+                <p class="justified-text">
+                    <strong>Step 2: Calculate After-Tax Cost of Debt:</strong><br>
+                    After-Tax R_d = 6.0% × (1 - 0.25) = <strong>4.5%</strong>.
+                </p>
+
+                <p class="justified-text">
+                    <strong>Step 3: Calculate WACC weights & final rate:</strong><br>
+                    Weight of Equity (E/V) = $70M / $100M = 70%<br>
+                    Weight of Debt (D/V) = $30M / $100M = 30%<br>
+                    WACC = (0.70 × 10.0%) + (0.30 × 4.5%) = 7.0% + 1.35% = <strong>8.35%</strong>.
+                </p>
+
+                <div class="formula-highlight">
+                    💡 <strong>Result:</strong> Company Z's WACC is <strong>8.35%</strong>. This 8.35% rate will be used as the discount rate to calculate the present value of Company Z's projected FCFF in the DCF model.
+                </div>
+            </div>
+
+            <div class="learning-card">
+                <h3 class="section-title-gold">Why WACC is Critical in Valuation</h3>
+
+                <p class="justified-text">
+                    <strong>Sensitivity to Capital Structure:</strong> A lower WACC increases the present value of future cash flows, driving up company valuation. Managers seek to optimize debt and equity ratios to minimize WACC.
+                </p>
+
+                <p class="justified-text">
+                    <strong>Hurdle Rate for Capital Allocation:</strong> In corporate decision-making, projects must earn a return greater than WACC to create value for shareholders.
+                </p>
             </div>
 
             <!-- Section 4 -->
@@ -161,51 +172,50 @@
 
                 <form id="submoduleQuizForm">
 
-                    <!-- EDIT HERE: Question 1 -->
+                    <!-- Question 1 -->
                     <div class="quiz-question-box">
-                        <p class="question-text">Q1: What is the typical starting point (the "top-line") for building a multi-year financial forecast in a DCF model?</p>
+                        <p class="question-text">Q1: What does the Weighted Average Cost of Capital (WACC) represent in a DCF model?</p>
                         <div class="quiz-options">
-                            <!-- Set data-correct="true" on the correct radio option -->
                             <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="false"> Net Income
+                                <input type="radio" name="q1" data-correct="false"> The interest rate charged by commercial banks on corporate mortgages.
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="true"> Revenue (or Sales)
+                                <input type="radio" name="q1" data-correct="true"> The blended after-tax rate of return required by all capital providers (debt and equity) to discount FCFF.
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="false"> Capital Expenditures
+                                <input type="radio" name="q1" data-correct="false"> The accounting profit margin generated on annual sales revenue.
                             </label>
                         </div>
                     </div>
 
-                    <!-- EDIT HERE: Question 2 -->
+                    <!-- Question 2 -->
                     <div class="quiz-question-box">
-                        <p class="question-text">Q2: If a company's revenue grows by 10% and its operating margin expands from 15% to 16%, what happens to its absolute operating profit?</p>
+                        <p class="question-text">Q2: Using the CAPM formula, if the Risk-Free Rate is 3%, Beta is 1.5, and Equity Risk Premium is 6%, what is the Cost of Equity?</p>
                         <div class="quiz-options">
                             <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="false"> It stays exactly the same.
+                                <input type="radio" name="q2" data-correct="false"> 9.0%
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="false"> It grows by exactly 10%.
+                                <input type="radio" name="q2" data-correct="true"> 12.0%
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="true"> It grows by more than 10% due to the combined effect of higher sales and better efficiency.
+                                <input type="radio" name="q2" data-correct="false"> 13.5%
                             </label>
                         </div>
                     </div>
 
-                    <!-- EDIT HERE: Question 3 -->
+                    <!-- Question 3 -->
                     <div class="quiz-question-box">
-                        <p class="question-text">Q3: Why might a company's operating margins expand as its revenue grows?</p>
+                        <p class="question-text">Q3: Why is the Cost of Debt multiplied by (1 - Tax Rate) when calculating WACC?</p>
                         <div class="quiz-options">
                             <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="true"> Because of economies of scale, where fixed costs are spread over a larger revenue base.
+                                <input type="radio" name="q3" data-correct="true"> Because interest expense is tax-deductible, creating a tax shield that reduces effective borrowing costs.
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="false"> Because the company is forced to lower its prices to compete in the market.
+                                <input type="radio" name="q3" data-correct="false"> Because governments collect taxes directly from equity investors.
                             </label>
                             <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="false"> Because variable costs increase at a faster rate than revenue.
+                                <input type="radio" name="q3" data-correct="false"> Because corporate taxes increase the cost of debt capital.
                             </label>
                         </div>
                     </div>

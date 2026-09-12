@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- EDIT HERE: Page Title -->
-    <title>Submodule 3.4: Enterprise Value to Equity Value Bridge | Finance for BIT</title>
+    <title>Submodule 3.4: Sensitivity Analysis | Finance for BIT</title>
 
     <!-- Theme & Styles -->
     <link rel="stylesheet" href="../../styles.css">
@@ -17,7 +16,6 @@
     <script src="../../assets/js/accounts.js" defer></script>
     <script src="../../assets/js/modules-data.js" defer></script>
     <script src="../../assets/js/navbar.js" defer></script>
-    <script src="../../assets/js/submodule-quiz.js" defer></script>
     <script src="../../assets/js/login-modal.js" defer></script>
 </head>
 
@@ -28,189 +26,190 @@
     <main class="submodule-page">
         <div class="submodule-container">
 
-            <!-- Breadcrumb Navigation back to Curriculum Room -->
+            <!-- Breadcrumb Navigation -->
             <a href="../modules.html" class="back-link">
                 ← Back to Curriculum Room
             </a>
 
             <!-- Submodule Main Header Card -->
             <div class="submodule-hero">
-                <!-- EDIT HERE: Submodule Tag & Number -->
                 <span class="submodule-tag">Submodule 3.4</span>
-
-                <!-- EDIT HERE: Main Submodule Title -->
-                <h1 class="submodule-main-title">Enterprise Value to Equity Value Bridge</h1>
-
-                <!-- EDIT HERE: Submodule Lead Summary -->
+                <h1 class="submodule-main-title">Sensitivity Analysis</h1>
                 <p class="submodule-lead">
-                    Learn how to translate the total value of a business's operations into the actual value belonging to its shareholders, completing the final step of a DCF valuation.
+                    Learn how to stress-test DCF valuations using WACC vs. Perpetual Growth Rate matrices, and bridge
+                    Enterprise Value to Equity Value to derive the final per-share target price.
                 </p>
             </div>
 
-            <!-- SECTION 1 -->
+            <!-- SECTION 1: HEADER BANNER -->
             <div class="submodule-header-banner">
-                <!-- EDIT HERE: Section 1 Header Title -->
-                <h2>Enterprise Value to Equity Value Bridge</h2>
+                <h2>Sensitivity Analysis & Valuation Stress-Testing</h2>
             </div>
 
-            <!-- SECTION 2 -->
+            <!-- SECTION 2: MEDIA GRID -->
             <div class="submodule-media-grid">
-
-                <!-- LEFT COLUMN: Photo / Table Image -->
                 <div class="submodule-image-col">
-                    <!-- EDIT HERE: Replace src with your image file path (e.g., ../../assets/images/your-image.png) -->
-                    <img src="../../assets/images/submodule3-4-1.png" alt="Enterprise Value to Equity Value Bridge Diagram"
-                        id="submoduleMainImage">
+                    <img src="../../assets/images/submodule3-4-1.png"
+                        alt="Sensitivity Analysis Table and DCF Valuation Matrix" id="submoduleMainImage">
                 </div>
-
-                <!-- RIGHT COLUMN: Paragraph Content -->
                 <div class="submodule-text-col">
-                    <!-- EDIT HERE: Paragraph 1 -->
                     <p class="justified-text">
-                        When you build a Discounted Cash Flow (DCF) model using Free Cash Flow to Firm (FCFF) and discount it by the WACC, the result is the Enterprise Value (EV). This represents the total value of the company's core business operations, regardless of how it is financed.
+                        Sensitivity Analysis is a technique that tests how changes in key assumptions impact the final
+                        valuation. It provides a range of possible outcomes rather than a single, misleading number.
                     </p>
-
-                    <!-- EDIT HERE: Paragraph 2 -->
                     <p class="justified-text">
-                        However, investors don't buy "Enterprise Value"; they buy shares of stock. To find out what those shares are actually worth, we must build a "bridge" from Enterprise Value down to Equity Value.
+                        Since DCF relies heavily on forecasts of growth, margins, and discount rates, sensitivity
+                        analysis is essential for understanding uncertainty. It answers the question: <em>"What happens
+                            to the valuation if my assumptions are wrong?"</em>
                     </p>
                 </div>
-
             </div>
 
-            <!-- SECTION 3-->
+            <!-- CARD 1: KEY VARIABLES TO TEST -->
             <div class="learning-card">
-
-                <!-- EDIT HERE: Gold Sub-heading -->
-                <h3 class="section-title-gold">The Core Formula: The Bridge</h3>
-
-                <!-- EDIT HERE: Section Text -->
+                <h3 class="section-title-gold">Key Variables to Test</h3>
                 <p class="justified-text">
-                    Enterprise Value represents the value of the business to all capital providers (both debt and equity holders). To isolate the value that belongs strictly to the common shareholders, we must account for the company's non-operating assets and financial obligations.
+                    The most sensitive variables are WACC and terminal growth rate, as small changes in either can
+                    significantly impact valuation. Revenue growth and operating margins also have substantial effects
+                    on projected cash flows.
                 </p>
-
-                <!-- EDIT HERE: Formula Callout Box -->
+                <p class="justified-text">
+                    Analysts typically test a range of values for each variable to understand the full spectrum of
+                    possible outcomes. This helps identify which assumptions require the most careful estimation.
+                </p>
                 <div class="formula-highlight">
-                    💡 <strong>Equity Value = Enterprise Value + Cash & Cash Equivalents - Total Debt - Preferred Stock - Minority Interest</strong>
+                    📊 <strong>Primary Sensitivity Drivers:</strong><br>
+                    • <strong>WACC (Discount Rate):</strong> Directly dictates the present value discount factor applied
+                    to cash flows.<br>
+                    • <strong>Terminal Growth Rate (g):</strong> Drives the infinite compounding calculation of terminal
+                    value.<br>
+                    • <strong>Revenue Growth & Operating Margins:</strong> Determine cash flow generation capacity.
                 </div>
-
-                <p class="justified-text">
-                    <strong>Why add Cash?</strong> Cash is a non-operating asset. It doesn't generate operating cash flow, but it belongs to the shareholders. If you buy the whole company, you get its cash.
-                </p>
-
-                <p class="justified-text">
-                    <strong>Why subtract Debt?</strong> Debt holders have a senior claim on the company's assets. Before equity holders get a single dollar, all debt must be paid off. Therefore, debt reduces the value available to shareholders.
-                </p>
-
-                <h3 class="section-title-gold" style="margin-top: 2rem;">Real-World Corporate Finance Example: The "House" Analogy</h3>
-
-                <p class="justified-text">
-                    The easiest way to understand this bridge is to think about buying a house. 
-                </p>
-
-                <p class="justified-text">
-                    Suppose a house has a market value of <strong>$500,000</strong>. This is the <strong>Enterprise Value</strong> of the property. 
-                </p>
-
-                <p class="justified-text">
-                    However, the current owner still has a <strong>$300,000 mortgage (Debt)</strong> on the house. Additionally, when you buy the house, you also get a safe in the basement containing <strong>$20,000 in cash (Cash)</strong>.
-                </p>
-
-                <p class="justified-text">
-                    How much cash do you actually need to pay the seller to acquire the house? 
-                    <strong>$500,000 (House Value) - $300,000 (Mortgage) + $20,000 (Cash in safe) = $220,000.</strong>
-                </p>
-
-                <div class="formula-highlight">
-                    💡 <strong>Result:</strong> The $220,000 is the <strong>Equity Value</strong>. In corporate finance, if you acquire a company, you pay the Equity Value, but you effectively assume control of the Enterprise Value and its associated debt and cash.
-                </div>
-
-                <h3 class="section-title-gold" style="margin-top: 2rem;">From Equity Value to Share Price</h3>
-
-                <p class="justified-text">
-                    Once you have calculated the total Equity Value, the final step in a DCF model is to divide this number by the fully diluted share count (the total number of shares outstanding, including stock options and warrants).
-                </p>
-
-                <p class="justified-text">
-                    <strong>Intrinsic Share Price = Equity Value / Fully Diluted Shares Outstanding</strong>
-                </p>
-
-                <p class="justified-text">
-                    Analysts then compare this intrinsic share price to the company's current trading price on the stock market. If the intrinsic price is higher, the stock is considered undervalued (a "Buy"). If it is lower, the stock is overvalued (a "Sell").
-                </p>
-
             </div>
 
-            <!-- Section 4 -->
-            <div class="quiz-card" id="quizCard">
-                <div class="card-section-header">
-                    <h3>📝 Practice Quiz & Submodule Check</h3>
-                    <span class="read-time-pill">Complete all questions to unlock Submodule 3.5</span>
+            <!-- CARD 2: WHY SENSITIVITY MATTERS -->
+            <div class="learning-card">
+                <h3 class="section-title-gold">Why Sensitivity Matters</h3>
+                <p class="justified-text">
+                    Sensitivity analysis reveals which assumptions drive valuation, validates your inputs, and supports
+                    better decision-making. It builds credibility by acknowledging uncertainty and providing a realistic
+                    range of outcomes.
+                </p>
+                <p class="justified-text">
+                    Presenting a valuation range rather than a single number demonstrates thoughtful analysis and
+                    protects against overconfidence. Investors and managers rely on this insight to evaluate downside
+                    risk and upside potential.
+                </p>
+                <div class="formula-highlight">
+                    💡 <strong>Valuation Credibility & Risk Management:</strong><br>
+                    Single Point Estimate -> Stress-Test -> Realistic Valuation Spectrum (Bear / Base / Bull)
                 </div>
-                <p style="color: #a0aec0; margin-bottom: 1.5rem;">
-                    Answer the multiple-choice questions below. Scoring a perfect score will automatically mark this
-                    submodule as completed!
+            </div>
+
+            <!-- CARD 3: CREATING A SENSITIVITY TABLE -->
+            <div class="learning-card">
+                <h3 class="section-title-gold">Creating & Interpreting a Sensitivity Table</h3>
+                <p class="justified-text">
+                    A sensitivity table maps valuation outcomes across different combinations of WACC and terminal
+                    growth rate. It helps visualize the range of possible values and the impact of key assumptions.
+                </p>
+                <p class="justified-text">
+                    For example, a table might show valuation increasing with higher growth and decreasing with higher
+                    WACC. This visual tool makes it easy to see which variables have the greatest impact and what the
+                    worst-case and best-case scenarios might look like.
                 </p>
 
-                <form id="submoduleQuizForm">
+                <!-- SENSITIVITY TABLE DISPLAY -->
+                <div style="overflow-x: auto; margin: 1.5rem 0;">
+                    <table
+                        style="width: 100%; border-collapse: collapse; text-align: center; border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(0, 0, 0, 0.2); border-radius: 8px;">
+                        <thead>
+                            <tr style="background: rgba(179, 146, 88, 0.2); color: var(--theme-gold, #b39258);">
+                                <th
+                                    style="padding: 0.9rem; border: 1px solid rgba(255, 255, 255, 0.15); font-size: 1.05rem;">
+                                    Terminal Growth (g) \ WACC</th>
+                                <th
+                                    style="padding: 0.9rem; border: 1px solid rgba(255, 255, 255, 0.15); font-size: 1.05rem;">
+                                    WACC 9%</th>
+                                <th
+                                    style="padding: 0.9rem; border: 1px solid rgba(255, 255, 255, 0.15); font-size: 1.05rem;">
+                                    WACC 10%</th>
+                                <th
+                                    style="padding: 0.9rem; border: 1px solid rgba(255, 255, 255, 0.15); font-size: 1.05rem;">
+                                    WACC 11%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); font-weight: 700; color: #ffffff;">
+                                    g = 1%</td>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0;">
+                                    $11.5M</td>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0;">
+                                    $10.5M</td>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0;">
+                                    $9.6M</td>
+                            </tr>
+                            <tr>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); font-weight: 700; color: #ffffff;">
+                                    g = 2%</td>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0;">
+                                    $13.8M</td>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0; font-weight: 800; background: rgba(179, 146, 88, 0.15); color: var(--theme-gold, #b39258);">
+                                    $12.8M (Base)</td>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0;">
+                                    $11.6M</td>
+                            </tr>
+                            <tr>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); font-weight: 700; color: #ffffff;">
+                                    g = 3%</td>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0;">
+                                    $16.5M</td>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0;">
+                                    $15.2M</td>
+                                <td
+                                    style="padding: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.15); color: #e2e8f0;">
+                                    $13.8M</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <!-- EDIT HERE: Question 1 -->
-                    <div class="quiz-question-box">
-                        <p class="question-text">Q1: What does a standard DCF model using Free Cash Flow to Firm (FCFF) and WACC primarily calculate?</p>
-                        <div class="quiz-options">
-                            <!-- Set data-correct="true" on the correct radio option -->
-                            <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="false"> Equity Value
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="true"> Enterprise Value
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q1" data-correct="false"> Market Capitalization
-                            </label>
-                        </div>
-                    </div>
+                <div class="formula-highlight">
+                    🔍 <strong>Interpreting the Sensitivity Table:</strong><br>
+                    • <strong>WACC Impact:</strong> As WACC increases (more risk), valuation decreases (moving left to
+                    right from $11.5M to $9.6M).<br>
+                    • <strong>Growth Impact:</strong> As terminal growth increases (more optimism), valuation increases
+                    (moving top to bottom from $11.5M to $16.5M).<br>
+                    • <strong>Uncertainty Spectrum:</strong> Demonstrates a valuation range of <strong>$9.6M
+                        (Bear)</strong> to <strong>$16.5M (Bull)</strong> around the <strong>$12.8M Base Case</strong>.
+                </div>
+            </div>
 
-                    <!-- EDIT HERE: Question 2 -->
-                    <div class="quiz-question-box">
-                        <p class="question-text">Q2: When bridging from Enterprise Value to Equity Value, how do you treat the company's Cash and Total Debt?</p>
-                        <div class="quiz-options">
-                            <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="false"> Subtract Cash and Add Debt
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="false"> Subtract both Cash and Debt
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q2" data-correct="true"> Add Cash and Subtract Debt
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- EDIT HERE: Question 3 -->
-                    <div class="quiz-question-box">
-                        <p class="question-text">Q3: If a company has an Enterprise Value of $500 million, $50 million in Cash, and $100 million in Total Debt, what is its Equity Value?</p>
-                        <div class="quiz-options">
-                            <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="false"> $550 million
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="true"> $450 million
-                            </label>
-                            <label class="quiz-option">
-                                <input type="radio" name="q3" data-correct="false"> $350 million
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Feedback message display -->
-                    <div id="quizFeedback" style="margin-top: 1.5rem; font-weight: 700;"></div>
-
-                    <!-- Submit Quiz & Progression Button -->
-                    <button type="submit" class="btn-complete-submodule" style="margin-top: 1.5rem; width: 100%;">
-                        ✓ Submit Quiz & Unlock Next Submodule
-                    </button>
-                </form>
+            <!-- MODULE MINIGAME — Required to Unlock Next Module -->
+            <div class="submodule-hero"
+                style="background: rgba(179, 146, 88, 0.15); border-color: #b39258; text-align: center; margin-top: 2.5rem;">
+                <span class="submodule-tag" style="background: #b39258; color: #000;">💰 Module 3 Minigame —
+                    Required</span>
+                <h2 style="margin: 0.5rem 0; font-weight: 800;">Who Wants to Be a Millionaire? (DCF Edition)</h2>
+                <p style="color: #cbd5e1; margin-bottom: 1.25rem;">
+                    Climb the $1,000,000 valuation ladder to complete Module 3 and unlock Module 4!
+                </p>
+                <a href="submodule-3-game.html" class="btn-complete-submodule"
+                    style="display: inline-block; text-decoration: none; max-width: 300px;">
+                    💰 Play Millionaire Minigame
+                </a>
             </div>
 
         </div>
