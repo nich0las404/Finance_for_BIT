@@ -30,8 +30,8 @@ class AppHomepage extends HTMLElement {
                 <span>Explore Modules</span>
                 <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <a href="pages/minigames.html" class="btn-kinetic-secondary">
-                <span>Play Minigames</span>
+            <a href="pages/about.html#curriculum" class="btn-kinetic-secondary">
+                <span>View Curriculum</span>
             </a>
         </div>
 
