@@ -287,3 +287,113 @@
 .justified-text {
     text-align: justify;
 }
+
+/* ========================================
+   Submodule TL;DR Summary Card Styling
+   ======================================== */
+.tldr-card {
+    background: linear-gradient(135deg, rgba(28, 45, 66, 0.4) 0%, rgba(18, 24, 36, 0.6) 100%);
+    border: 1px solid rgba(179, 146, 88, 0.35);
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.tldr-card:hover {
+    border-color: rgba(179, 146, 88, 0.6);
+}
+
+.tldr-header-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.tldr-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.tldr-badge {
+    background: rgba(179, 146, 88, 0.2);
+    color: var(--theme-gold, #b39258);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    letter-spacing: 1px;
+}
+
+.tldr-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+}
+
+.btn-tldr-toggle {
+    background: linear-gradient(135deg, #b39258 0%, #8e713e 100%);
+    color: #0b111e;
+    border: none;
+    font-weight: 800;
+    font-size: 0.9rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(179, 146, 88, 0.3);
+}
+
+.btn-tldr-toggle:hover {
+    background: linear-gradient(135deg, #c7a56a 0%, #a1824a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(179, 146, 88, 0.45);
+}
+
+.tldr-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+}
+
+.tldr-content.active {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px dashed rgba(179, 146, 88, 0.25);
+}
+
+.tldr-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.tldr-list li {
+    position: relative;
+    padding-left: 1.75rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+    font-size: 1rem;
+}
+
+.tldr-list li::before {
+    content: "⚡";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 0.9rem;
+}
